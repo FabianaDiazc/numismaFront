@@ -1,0 +1,91 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <img alt="Brand" src="/assets/img/logoLG.png" style="height: 100%">
+      </a>
+    </div>
+  </div>
+
+</nav>
+
+<div class="container">
+
+   <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3"> 
+
+      <div class="panel panel-warning" style="text-align: center">
+        <div class="panel-heading"> 
+          <div class="panel-title text-center">
+            Crear Cuenta
+          </div>
+        </div>
+        <div class="panel-body">
+
+            <form [formGroup]="form" class="form-horizontal">         
+                
+                <div class="input-group">
+                    <span class="input-group-addon">Nombre: </span>
+                    <input type="text" class="form-control" [(formControl)]="first_name" placeholder="Nombre">                                        
+                </div>
+                <div class="errorBox" *ngIf="!first_name.valid  && (first_name.dirty || submitAttempt)">
+                    * requerido.
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Apellido: </span>
+                    <input type="text" class="form-control" [(formControl)]="last_name" placeholder="Apellido">                                        
+                </div>
+                <div class="errorBox" *ngIf="!last_name.valid  && (last_name.dirty || submitAttempt)">
+                    * requerido.
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Genero: </span>
+                    <select class="form-control" [(formControl)]="genero">
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                    </select>
+                </div>
+                <div class="errorBox" *ngIf="!genero.valid  && (genero.dirty || submitAttempt)">
+                    * requerido.
+                </div>
+                
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" class="form-control" [(formControl)]="username" placeholder="Usuario">                                        
+                </div>
+                <div class="errorBox" *ngIf="!username.valid  && (username.dirty || submitAttempt)">
+                    * requerido.
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" [(formControl)]="password" placeholder="Contraseña">
+                </div>                                                                  
+                <div class="errorBox" *ngIf="!password.valid  && (password.dirty || submitAttempt)">
+                    * requerido.
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" [(formControl)]="password2" placeholder="Repetir Contraseña">
+                </div>                                                                  
+                <div class="errorBox" *ngIf="!password2.valid  && (password2.dirty || submitAttempt)">
+                    * requerido.
+                </div>
+
+                <div class="form-group">
+                    <!-- Button -->
+                    <div class="col-sm-12 controls">
+                        <button class="btn btn-warning pull-right" (click)="singup()">
+                            <i class="glyphicon glyphicon-log-in"></i> Crear cuenta
+                        </button>                          
+                    </div>
+                </div>
+
+            </form>   
+
+        </div>
+      </div>
+   </div>
+</div>

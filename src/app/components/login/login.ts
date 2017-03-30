@@ -9,9 +9,12 @@ import {
  } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  })
-export class AppComponent {
+  selector: 'login',
+  templateUrl: './login.html',
+  styleUrls: ['./login.css'],
+})
+export class LoginComponent {
+
+    constructor() {
+    }
 }
