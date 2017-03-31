@@ -1,0 +1,1 @@
+export let SERVER_URL: string = 'http://localhost:8000';

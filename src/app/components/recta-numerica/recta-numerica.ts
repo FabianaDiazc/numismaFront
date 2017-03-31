@@ -7,6 +7,9 @@ import {
     animate,
     keyframes
  } from '@angular/core';
+import { UsuarioService } from '../../services/usuario-service';
+import { Usuario } from '../../models/usuario';
+import { Router }  from '@angular/router';
 
 @Component({
   selector: 'recta-numerica',
@@ -40,12 +43,14 @@ import {
     ]
   })
 export class RectaNumericaComponent {
+    isLoading: boolean;
     state: string = 'inactive';
     currValue: number;
     targetValue: number;
     progressType: string;
     checkModel:any = {monedas: true, billetes: false};
     editTarget: boolean;
+    usuario: Usuario;
     billetes: any[] = [
         {
             value: 1000,
@@ -57,31 +62,31 @@ export class RectaNumericaComponent {
             value: 2000,
             number: 0,
             maxNumber: 5,
-            imgUrl: "http://www.colombia.co/wp-content/uploads/2015/08/02.jpg"
+            imgUrl: "http://www.banrep.gov.co/billetes/2-mil/images/2000/anverso2000.jpg"
         },
         {
             value: 5000,
             number: 0,
             maxNumber: 5,
-            imgUrl: "http://www.colombia.co/wp-content/uploads/2015/08/05.jpg"
+            imgUrl: "http://www.banrep.gov.co/billetes/5-mil/images/5000/anverso5000.jpg"
         },
         {
             value: 10000,
             number: 0,
             maxNumber: 5,
-            imgUrl: "http://www.colombia.co/wp-content/uploads/2015/08/10.jpg"
+            imgUrl: "http://www.banrep.gov.co/billetes/10-mil/images/10000/anverso10000.jpg"
         },
         {
             value: 20000,
             number: 0,
             maxNumber: 5,
-            imgUrl: "http://www.colombia.co/wp-content/uploads/2015/08/20.jpg"
+            imgUrl: "http://www.banrep.gov.co/billetes/20-mil/images/20000/anverso20000.jpg"
         },
         {
             value: 50000,
             number: 0,
             maxNumber: 5,
-            imgUrl: "http://www.colombia.co/wp-content/uploads/2015/08/50.jpg"
+            imgUrl: "http://www.banrep.gov.co/billetes/50-mil/images/50000/anverso50000.png"
         }
     ];
 
@@ -118,11 +123,29 @@ export class RectaNumericaComponent {
         }
     ];
 
-    constructor() {
+    constructor(private usuarioService: UsuarioService,
+                private router: Router,)
+    {
+        this.isLoading = true;
         this.targetValue = 57000;
         this.currValue = 0;
         this.progressType = 'info';
         this.editTarget = false;
+        let token = this.usuarioService.getToken();
+        if(!token) {
+            this.router.navigate(['/login']);
+        } else { 
+            this.usuarioService.getAuthCustomer().subscribe(
+                (usuario) => {
+                    this.usuarioService.setUsuario(usuario);
+                    this.usuario = usuario;
+                    this.isLoading = false;
+                },
+                (error) => {
+                    this.router.navigate(['/login']);
+                }
+            )
+        }
     }
 
     toggleMove() {
@@ -158,6 +181,11 @@ export class RectaNumericaComponent {
             this.progressType = 'success';
         }
         console.log(this.progressType);
+    }
+
+    logout() {
+        sessionStorage.clear();
+        this.router.navigate(['/login']);
     }
 
 }

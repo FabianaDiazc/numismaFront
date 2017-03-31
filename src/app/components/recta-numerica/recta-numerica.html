@@ -9,11 +9,25 @@
         <label class="btn btn-warning navbar-btn" [(ngModel)]="checkModel.billetes" btnCheckbox>Billetes</label>
       </div>
     </div>
+
+    <ul class="nav navbar-nav navbar-right">
+       <li *ngIf="usuario"><a>Hola {{ usuario.first_name }}</a></li>
+       <li> <a></a></li>
+       <li>
+          <button (click)="logout()" class="btn btn-warning btn-sm navbar-btn navbar-right" style="font-size: 1.0em;">Cerrar Sesión</button>
+       </li>
+       <li> <a></a> </li>
+    </ul>
+    <!--<button type="button" class="btn btn-warning btn-sm navbar-btn navbar-right">Cerrar Sesión</button>-->
+    
   </div>
 
 </nav>
-
-<div class="container">
+<div class="container" >
+  <div class="spinner" *ngIf="isLoading"></div>
+</div>
+<div class="container" *ngIf="!isLoading">
+  
   <!--<alert type="success" *ngIf="this.progressType == 'success'">Success</alert>-->
   <div class="row top-buffer">
     <alert type="warning" *ngIf="!editTarget">

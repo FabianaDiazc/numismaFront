@@ -10,6 +10,8 @@ import { RectaNumericaComponent } from './components/recta-numerica/recta-numeri
 import { LoginComponent } from './components/login/login';
 import { SignupComponent } from './components/signup/signup';
 
+import { UsuarioService } from './services/usuario-service';
+
 const appRoutes: Routes = [
   { path: 'recta-numerica', component: RectaNumericaComponent },
   { path: 'login', component: LoginComponent },
@@ -37,7 +39,9 @@ const appRoutes: Routes = [
     ButtonsModule.forRoot(),
     AlertModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    UsuarioService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

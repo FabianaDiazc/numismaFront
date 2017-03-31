@@ -20,22 +20,32 @@
           </div>
         </div>
         <div class="panel-body">
-
-            <form name="form" id="form" class="form-horizontal" enctype="multipart/form-data" method="POST">         
+            <alert type="danger" *ngIf="errorLogin">
+                <strong>Error!</strong> El usuario o la clave son incorrectos.
+            </alert>
+            <form [formGroup]="form" class="form-horizontal" >
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="user" type="text" class="form-control" name="user" value="" placeholder="Usuario">                                        
+                    <input type="text" class="form-control" [(formControl)]="username" placeholder="Usuario">                                        
+                </div>
+                <div class="errorBox" *ngIf="!username.valid  && (username.dirty || submitAttempt)">
+                    * requerido.
                 </div>
 
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="password" type="password" class="form-control" name="password" placeholder="Contraseña">
+                    <input type="password" class="form-control" [(formControl)]="password" placeholder="Contraseña">
                 </div>                                                                  
-
+                <div class="errorBox" *ngIf="!password.valid  && (password.dirty || submitAttempt)">
+                    * requerido.
+                </div>
+                
                 <div class="form-group">
                     <!-- Button -->
                     <div class="col-sm-12 controls">
-                        <button type="submit" href="#" class="btn btn-warning pull-right"><i class="glyphicon glyphicon-log-in"></i> Iniciar Sesión</button>                          
+                        <button class="btn btn-warning pull-right" (click)="login()">
+                            <i class="glyphicon glyphicon-log-in"></i> Iniciar Sesión
+                        </button>
                     </div>
                 </div>
 
