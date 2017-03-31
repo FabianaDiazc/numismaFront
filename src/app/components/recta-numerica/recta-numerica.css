@@ -28,3 +28,9 @@ button {
   margin-left: 50%;
   text-align: center;
 }
+
+.avatar {
+  position: relative;
+  height: 120px;
+  left: -30px;
+}

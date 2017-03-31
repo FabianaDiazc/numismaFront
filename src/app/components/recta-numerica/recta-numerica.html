@@ -48,6 +48,7 @@
   </div>
   <div class="row">
     <div class="col-lg-12">
+        <img  #avatar src='../assets/img/Conejo.jpg' class="avatar">
         <progressbar [max]="targetValue" [value]="currValue" [type]="progressType">
           {{ currValue | currency:'USD':true:'1.0-0' }}
         </progressbar>

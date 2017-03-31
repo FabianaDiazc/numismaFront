@@ -47,6 +47,7 @@ export class SignupComponent {
 
     singup() {
         if(this.form.valid) {
+            let password = this.password.value;
             let nuevo: Usuario = new Usuario({
                 username: this.username.value,
                 first_name: this.first_name.value,
@@ -56,9 +57,17 @@ export class SignupComponent {
             });
             this.usuarioService.createUser(nuevo).subscribe(
                 (usuario) => {
-                    this.usuarioService.setUsuario(usuario);
-                    console.log(usuario);
-                     this.router.navigate(['/recta-numerica']);
+                    this.usuarioService.login(usuario.username, password).subscribe(
+                        (token) => {
+                            sessionStorage.setItem('token', token);
+                            console.log(usuario);
+                            this.router.navigate(['/recta-numerica']);
+                        },
+                        (error) => {
+                            console.log('error');
+                        }
+                    )
+                    
                 },
                 (error) => {
                     console.log(error);

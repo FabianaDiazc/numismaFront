@@ -5,7 +5,9 @@ import {
     style,
     transition,
     animate,
-    keyframes
+    keyframes,
+    ViewChild,
+    ElementRef
  } from '@angular/core';
 import { UsuarioService } from '../../services/usuario-service';
 import { Usuario } from '../../models/usuario';
@@ -51,6 +53,8 @@ export class RectaNumericaComponent {
     checkModel:any = {monedas: true, billetes: false};
     editTarget: boolean;
     usuario: Usuario;
+    @ViewChild('avatar') avatar: ElementRef;
+
     billetes: any[] = [
         {
             value: 1000,
@@ -173,6 +177,14 @@ export class RectaNumericaComponent {
     }
 
     calculateColor() {
+        this.avatar.nativeElement.style.left = 'calc(50% - 30px)';
+        let percentage = this.currValue / this.targetValue;
+        console.log(percentage);
+        if(percentage > 1) {
+            this.avatar.nativeElement.style.left = 'calc(100% - 30px)';
+        } else {
+            this.avatar.nativeElement.style.left = `calc(${percentage*100}% - 30px)`;
+        }
         if(this.currValue < this.targetValue) {
             this.progressType = 'info';
         } else if (this.currValue > this.targetValue) {
