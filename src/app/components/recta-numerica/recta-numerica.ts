@@ -11,6 +11,7 @@ import {
  } from '@angular/core';
 import { UsuarioService } from '../../services/usuario-service';
 import { Usuario } from '../../models/usuario';
+import { Objeto } from '../../models/objeto';
 import { Router }  from '@angular/router';
 
 @Component({
@@ -53,6 +54,8 @@ export class RectaNumericaComponent {
     checkModel:any = {monedas: true, billetes: false};
     editTarget: boolean;
     usuario: Usuario;
+    choosenObject: Objeto;
+
     @ViewChild('avatar') avatar: ElementRef;
 
     billetes: any[] = [
@@ -198,6 +201,15 @@ export class RectaNumericaComponent {
     logout() {
         sessionStorage.clear();
         this.router.navigate(['/login']);
+    }
+
+    goToMenu() {
+        this.router.navigate(['/menu']);
+    }
+
+    onVoted(obj: Objeto) {
+        this.choosenObject = obj;
+        this.targetValue = this.choosenObject.valor;
     }
 
 }

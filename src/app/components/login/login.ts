@@ -5,7 +5,8 @@ import {
     style,
     transition,
     animate,
-    keyframes
+    keyframes,
+    OnInit
  } from '@angular/core';
 import { Router }  from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
@@ -16,11 +17,12 @@ import { UsuarioService } from '../../services/usuario-service';
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
     username: AbstractControl;
     password: AbstractControl;
     submitAttempt: boolean;
     errorLogin: boolean;
+    isLoading: boolean;
 
     form: FormGroup;
     constructor(formBuilder: FormBuilder,
@@ -36,11 +38,24 @@ export class LoginComponent {
         this.password = this.form.controls['password'];
     }
 
+    ngOnInit() {
+        this.isLoading = true;
+        this.usuarioService.getAuthCustomer().subscribe(
+            (usuario) => {
+                this.router.navigate(['/menu']);
+                this.isLoading = false;
+            },
+            (error) => {
+                this.isLoading = false;
+            }
+        )
+    }
+
     login() {
         if(this.form.valid) {
             this.usuarioService.login(this.username.value, this.password.value).subscribe(
                 (data) => {
-                    this.router.navigate(['/recta-numerica']);
+                    this.router.navigate(['/menu']);
                 },
                 (error) => {
                     console.log(error);

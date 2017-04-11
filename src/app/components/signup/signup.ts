@@ -5,7 +5,8 @@ import {
     style,
     transition,
     animate,
-    keyframes
+    keyframes,
+    OnInit
  } from '@angular/core';
 import { Router }  from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
@@ -17,7 +18,7 @@ import { UsuarioService } from '../../services/usuario-service';
   templateUrl: './signup.html',
   styleUrls: ['./signup.css'],
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit{
     address: AbstractControl;
     first_name: AbstractControl;
     last_name: AbstractControl;
@@ -25,7 +26,7 @@ export class SignupComponent {
     username: AbstractControl;
     password: AbstractControl;
     submitAttempt: boolean;
-
+    isLoading: boolean;
     form: FormGroup;
     constructor(formBuilder: FormBuilder,
                 private router: Router,
@@ -45,6 +46,19 @@ export class SignupComponent {
         this.password = this.form.controls['password'];
     }
 
+    ngOnInit() {
+        this.isLoading = true;
+        this.usuarioService.getAuthCustomer().subscribe(
+            (usuario) => {
+                this.router.navigate(['/menu']);
+                this.isLoading = false;
+            },
+            (error) => {
+                this.isLoading = false;
+            }
+        )
+    }
+
     singup() {
         if(this.form.valid) {
             let password = this.password.value;
@@ -61,7 +75,7 @@ export class SignupComponent {
                         (token) => {
                             sessionStorage.setItem('token', token);
                             console.log(usuario);
-                            this.router.navigate(['/recta-numerica']);
+                            this.router.navigate(['/menu']);
                         },
                         (error) => {
                             console.log('error');

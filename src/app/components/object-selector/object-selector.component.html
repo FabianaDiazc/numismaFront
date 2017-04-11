@@ -1,0 +1,24 @@
+<div class="row" *ngIf="!isLoading">
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading c-list">
+                <span class="title">Selecciona el objeto</span>
+            </div>
+            
+            <ul class="list-group" id="contact-list" *ngFor="let obj of objetos">
+              <li class="list-group-item">
+                  <div class="col-xs-12 col-sm-3">
+                      <img [src]="obj.imagen" class="img-responsive img-circle" />
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                      <span class="name"> {{ obj.nombre }} </span><br/>
+                      <button class="btn btn-warning pull-right" (click)="select(obj)">
+                        Seleccionar
+                      </button>
+                  </div>
+                  <div class="clearfix"></div>
+              </li>
+            </ul>
+        </div>
+    </div>
+  </div>
