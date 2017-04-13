@@ -12,10 +12,16 @@ export class MenuComponent implements OnInit {
 
   isLoading: boolean;
   usuario: Usuario;
+  juegos: { nombre: string, url: string, image: string}[];
 
   constructor(private usuarioService: UsuarioService,
                 private router: Router,) 
-  { }
+  { 
+      this.juegos = [
+          { nombre: 'Recta Numérica', url: '/recta-numerica', image: '/assets/img/recta-numerica.jpg' },
+          { nombre: 'Balanza', url: '/balanza', image: '/assets/img/recta-numerica.jpg' }
+      ]
+  }
 
   ngOnInit() {
     this.isLoading = true;
@@ -37,8 +43,8 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  goToRectaNumerica() {
-      this.router.navigate(['/recta-numerica']);
+  goToRectaNumerica(url) {
+      this.router.navigate([url]);
   }
 
 }

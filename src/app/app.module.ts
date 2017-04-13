@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ProgressbarModule, ButtonsModule, AlertModule } from 'ng2-bootstrap';
+import { ProgressbarModule, ButtonsModule, AlertModule, ModalModule } from 'ng2-bootstrap';
 
 import { UsuarioService } from './services/usuario-service';
 import { ObjetoService } from './services/objeto.service';
@@ -15,16 +15,15 @@ import { LoginComponent } from './components/login/login';
 import { SignupComponent } from './components/signup/signup';
 import { MenuComponent } from './components/menu/menu.component';
 import { ObjectSelectorComponent } from './components/object-selector/object-selector.component';
+import { BalanzaComponent } from './components/balanza/balanza';
 
 const appRoutes: Routes = [
-  { path: 'menu', component: MenuComponent },
-  { path: 'recta-numerica', component: RectaNumericaComponent },
   { path: 'login', component: LoginComponent },
   { path: 'singup', component: SignupComponent },
-  { path: '',
-    redirectTo: '/login',
-    pathMatch: 'full'
-  },
+  { path: 'menu', component: MenuComponent },
+  { path: 'recta-numerica', component: RectaNumericaComponent },
+  { path: 'balanza', component: BalanzaComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -34,7 +33,8 @@ const appRoutes: Routes = [
     LoginComponent,
     SignupComponent,
     MenuComponent,
-    ObjectSelectorComponent
+    ObjectSelectorComponent,
+    BalanzaComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -44,11 +44,13 @@ const appRoutes: Routes = [
     HttpModule,
     ProgressbarModule.forRoot(),
     ButtonsModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
     UsuarioService,
-    ObjetoService
+    ObjetoService,
+    BalanzaComponent
   ],
   bootstrap: [AppComponent]
 })

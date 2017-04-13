@@ -16,9 +16,9 @@ import { Router }  from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
 @Component({
-  selector: 'recta-numerica',
-  templateUrl: './recta-numerica.html',
-  styleUrls: ['./recta-numerica.css'],
+  selector: 'balanza',
+  templateUrl: './balanza.html',
+  styleUrls: ['./balanza.css'],
   animations: [
         trigger('focusPanel', [
             state('inactive', style({
@@ -46,7 +46,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 
     ]
   })
-export class RectaNumericaComponent {
+export class BalanzaComponent {
     isLoading: boolean;
     state: string = 'inactive';
     currValue: number;
@@ -132,9 +132,22 @@ export class RectaNumericaComponent {
         }
     ];
 
+    balanzas: string[] = [
+        '../assets/img/balanza/-3.jpg',
+        '../assets/img/balanza/-2.jpg',
+        '../assets/img/balanza/-1.jpg',
+        '../assets/img/balanza/0.jpg',
+        '../assets/img/balanza/1.jpg',
+        '../assets/img/balanza/2.jpg',
+        '../assets/img/balanza/3.jpg'
+    ];
+
+    balanzaIndex: number;
+
     constructor(private usuarioService: UsuarioService,
                 private router: Router,)
     {
+        this.balanzaIndex = this.balanzas.length -1;
         this.isLoading = true;
         this.targetValue = 57000;
         this.currValue = 0;
@@ -170,7 +183,7 @@ export class RectaNumericaComponent {
             billete.number++;
             this.currValue += billete.value;
         }
-        this.calculateColor();
+        this.calculateBalanza();
     }
 
     substract(billete: any) {
@@ -178,25 +191,44 @@ export class RectaNumericaComponent {
             billete.number--;
             this.currValue -= billete.value;
         }
-        this.calculateColor();
+        this.calculateBalanza();
     }
 
-    calculateColor() {
-        this.avatar.nativeElement.style.left = 'calc(50% - 30px)';
+    calculateBalanza() {
         let percentage = this.currValue / this.targetValue;
         console.log(percentage);
-        if(percentage > 1) {
-            this.avatar.nativeElement.style.left = 'calc(100% - 30px)';
+        if(percentage < 1) {
+
+            if(percentage <= 0.25) {
+                this.balanzaIndex = 6;
+            } else if (percentage <= 0.5) {
+                this.balanzaIndex = 5;
+            } else {
+                this.balanzaIndex = 4;
+            }
+
+        } else if (percentage > 1) {
+            
+            if(percentage <= 1.5) {
+                this.balanzaIndex = 2;
+            } else if (percentage <= 2) {
+                this.balanzaIndex = 1;
+            } else {
+                this.balanzaIndex = 0;
+            }
+            
         } else {
-            this.avatar.nativeElement.style.left = `calc(${percentage*100}% - 30px)`;
+            // valor exacto
+            this.balanzaIndex = 3;
+            this.showChildModal();
         }
+        console.log(this.balanzaIndex);
         if(this.currValue < this.targetValue) {
             this.progressType = 'info';
         } else if (this.currValue > this.targetValue) {
             this.progressType = 'danger';
         } else if (this.currValue == this.targetValue) {
             this.progressType = 'success';
-            this.showChildModal();
         }
         console.log(this.progressType);
     }
@@ -219,7 +251,4 @@ export class RectaNumericaComponent {
         this.childModal.show();
     }
 
-    continue() {
-        this.router.navigate(['/balanza']);
-    }
 }

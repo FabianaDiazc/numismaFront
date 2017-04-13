@@ -31,13 +31,13 @@
             </div>
             
             <ul class="list-group" id="contact-list">
-              <li class="list-group-item">
+              <li class="list-group-item" *ngFor="let juego of juegos">
                   <div class="col-xs-12 col-sm-3">
-                      <img src="/assets/img/recta-numerica.jpg" class="img-responsive img-circle" />
+                      <img [src]="juego.image" class="img-responsive img-circle" />
                   </div>
                   <div class="col-xs-12 col-sm-9">
-                      <span class="name">Recta Numérica</span><br/>
-                      <button class="btn btn-warning pull-right" (click)="goToRectaNumerica()">
+                      <span class="name">{{ juego.nombre }}</span><br/>
+                      <button class="btn btn-warning pull-right" (click)="goToRectaNumerica(juego.url)">
                         Juagar
                       </button>
                   </div>
