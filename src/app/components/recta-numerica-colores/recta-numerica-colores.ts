@@ -16,9 +16,9 @@ import { Router }  from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
 @Component({
-  selector: 'balanza',
-  templateUrl: './balanza.html',
-  styleUrls: ['./balanza.css'],
+  selector: 'recta-numerica-colores',
+  templateUrl: './recta-numerica-colores.html',
+  styleUrls: ['./recta-numerica-colores.css'],
   animations: [
         trigger('focusPanel', [
             state('inactive', style({
@@ -46,7 +46,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 
     ]
   })
-export class BalanzaComponent {
+export class RectaNumericaColoresComponent {
     isLoading: boolean;
     state: string = 'inactive';
     currValue: number;
@@ -56,45 +56,52 @@ export class BalanzaComponent {
     editTarget: boolean;
     usuario: Usuario;
     choosenObject: Objeto;
+    textEstoy: string = 'Monedas';
 
     @ViewChild('childModal') public childModal:ModalDirective;
     @ViewChild('avatar') avatar: ElementRef;
 
     billetes: any[] = [
-        {
-            value: 1000,
-            number: 0,
-            maxNumber: 10,
-            imgUrl: "http://www.colombia.co/wp-content/uploads/2015/08/01.jpg"
-        },
+        // {
+        //     value: 1000,
+        //     number: 0,
+        //     maxNumber: 10,
+        //     color: 'primary',
+        //     imgUrl: "http://www.colombia.co/wp-content/uploads/2015/08/01.jpg"
+        // },
         {
             value: 2000,
             number: 0,
             maxNumber: 5,
+            color: 'primary',
             imgUrl: "http://www.banrep.gov.co/billetes/2-mil/images/2000/anverso2000.jpg"
         },
         {
             value: 5000,
             number: 0,
             maxNumber: 5,
+            color: 'info',
             imgUrl: "http://www.banrep.gov.co/billetes/5-mil/images/5000/anverso5000.jpg"
         },
         {
             value: 10000,
             number: 0,
             maxNumber: 5,
+            color: 'warning',
             imgUrl: "http://www.banrep.gov.co/billetes/10-mil/images/10000/anverso10000.jpg"
         },
         {
             value: 20000,
             number: 0,
             maxNumber: 5,
+            color: 'success',
             imgUrl: "http://www.banrep.gov.co/billetes/20-mil/images/20000/anverso20000.jpg"
         },
         {
             value: 50000,
             number: 0,
             maxNumber: 5,
+            color: 'danger',
             imgUrl: "http://www.banrep.gov.co/billetes/50-mil/images/50000/anverso50000.png"
         }
     ];
@@ -104,50 +111,42 @@ export class BalanzaComponent {
             value: 50,
             number: 0,
             maxNumber: 5,
+            color: 'danger',
             imgUrl: "http://www.globocambio.co/img/monedas/50-peso-new-back.jpg"
         },
         {
             value: 100,
             number: 0,
             maxNumber: 10,
+            color: 'primary',
             imgUrl: "http://www.globocambio.co/img/monedas/100-peso-new-back.jpg"
         },
         {
             value: 200,
             number: 0,
             maxNumber: 10,
+            color: 'info',
             imgUrl: "http://www.globocambio.co/img/monedas/200-peso-new-back.jpg"
         },
         {
             value: 500,
             number: 0,
             maxNumber: 10,
+            color: 'warning',
             imgUrl: "http://www.globocambio.co/img/monedas/500-peso-new-back.jpg"
         },
         {
             value: 1000,
             number: 0,
             maxNumber: 5,
+            color: 'success',
             imgUrl: "http://www.globocambio.co/img/monedas/1000-peso-new-back.jpg"
         }
     ];
 
-    balanzas: string[] = [
-        '../assets/img/balanza/-3.jpg',
-        '../assets/img/balanza/-2.jpg',
-        '../assets/img/balanza/-1.jpg',
-        '../assets/img/balanza/0.jpg',
-        '../assets/img/balanza/1.jpg',
-        '../assets/img/balanza/2.jpg',
-        '../assets/img/balanza/3.jpg'
-    ];
-
-    balanzaIndex: number;
-
     constructor(private usuarioService: UsuarioService,
                 private router: Router,)
     {
-        this.balanzaIndex = this.balanzas.length -1;
         this.isLoading = true;
         this.targetValue = 57000;
         this.currValue = 0;
@@ -183,7 +182,7 @@ export class BalanzaComponent {
             billete.number++;
             this.currValue += billete.value;
         }
-        this.calculateBalanza();
+        this.calculateColor();
     }
 
     substract(billete: any) {
@@ -191,44 +190,25 @@ export class BalanzaComponent {
             billete.number--;
             this.currValue -= billete.value;
         }
-        this.calculateBalanza();
+        this.calculateColor();
     }
 
-    calculateBalanza() {
+    calculateColor() {
+        this.avatar.nativeElement.style.left = 'calc(50% - 30px)';
         let percentage = this.currValue / this.targetValue;
         console.log(percentage);
-        if(percentage < 1) {
-
-            if(percentage <= 0.25) {
-                this.balanzaIndex = 6;
-            } else if (percentage <= 0.5) {
-                this.balanzaIndex = 5;
-            } else {
-                this.balanzaIndex = 4;
-            }
-
-        } else if (percentage > 1) {
-            
-            if(percentage <= 1.5) {
-                this.balanzaIndex = 2;
-            } else if (percentage <= 2) {
-                this.balanzaIndex = 1;
-            } else {
-                this.balanzaIndex = 0;
-            }
-            
+        if(percentage > 1) {
+            this.avatar.nativeElement.style.left = 'calc(100% - 30px)';
         } else {
-            // valor exacto
-            this.balanzaIndex = 3;
-            this.showChildModal();
+            this.avatar.nativeElement.style.left = `calc(${percentage*100}% - 30px)`;
         }
-        console.log(this.balanzaIndex);
         if(this.currValue < this.targetValue) {
             this.progressType = 'info';
         } else if (this.currValue > this.targetValue) {
             this.progressType = 'danger';
         } else if (this.currValue == this.targetValue) {
             this.progressType = 'success';
+            this.showChildModal();
         }
         console.log(this.progressType);
     }
@@ -252,7 +232,46 @@ export class BalanzaComponent {
     }
 
     continue() {
-        this.router.navigate(['/recta-numerica-colores'])
+        this.router.navigate(['/balanza']);
     }
 
+    changeEstoy() {
+        if(this.textEstoy == 'Monedas') {
+            this.checkModel.monedas = false;
+            this.checkModel.billetes = true;
+            this.textEstoy = 'Billetes';
+        } else {
+            this.checkModel.monedas = true;
+            this.checkModel.billetes = false;
+            this.textEstoy = 'Monedas';
+        }
+        this.reset();
+    }
+
+    reset() {
+        this.currValue = 0;
+        for(let moneda of this.monedas) {
+            moneda.number = 0;
+        }
+        for(let billete of this.billetes) {
+            billete.number = 0;
+        }
+    }
+
+    calculatePorcentage(color: string) {
+        let colorValue: number = 0;
+        console.log('entre con ' + color);
+        if(this.textEstoy == 'Monedas') {
+            for(let moneda of this.monedas.filter(moneda => moneda.color == color)) {
+                colorValue += moneda.value * moneda.number;
+            }
+        } else {
+            for(let billete of this.billetes.filter(billete => billete.color == color)) {
+                colorValue += billete.value * billete.number;
+            }
+        }
+
+        let percentage = colorValue / this.targetValue;
+        return percentage * 100;
+    }
 }

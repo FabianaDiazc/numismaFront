@@ -1,0 +1,235 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <img alt="Brand" src="/assets/img/logoLG.png" style="height: 100%">
+      </a>
+      <button (click)="changeEstoy()" class="btn btn-warning btn-sm navbar-btn navbar-right" style="font-size: 1.0em;">{{ textEstoy }}</button>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+       <li *ngIf="usuario"><a>Hola {{ usuario.first_name }}</a></li>
+       <li> <a></a></li>
+       <li>
+          <button (click)="goToMenu()" class="btn btn-warning btn-sm navbar-btn navbar-right" style="font-size: 1.0em;">Menú</button>
+       </li>
+       <li> <a></a></li>
+       <li>
+          <button (click)="logout()" class="btn btn-warning btn-sm navbar-btn navbar-right" style="font-size: 1.0em;">Cerrar Sesión</button>
+       </li>
+       <li> <a></a> </li>
+    </ul>
+    <!--<button type="button" class="btn btn-warning btn-sm navbar-btn navbar-right">Cerrar Sesión</button>-->
+    
+  </div>
+
+</nav>
+<div class="container" >
+  <div class="spinner" *ngIf="isLoading"></div>
+</div>
+<div class="container" *ngIf="!isLoading">
+  <div *ngIf="!choosenObject">
+    <div class="row">
+      <div class="col col-lg-6 col-lg-offset-3">
+    <alert><strong>Juego: Recta numérica Colores</strong></alert>
+      </div>
+    </div>
+  </div>
+  <object-selector *ngIf="!choosenObject" (onVoted)="onVoted($event)"></object-selector>
+  <!--<alert type="success" *ngIf="this.progressType == 'success'">Success</alert>-->
+  <div *ngIf="choosenObject">
+    <div  class="row top-buffer">
+      <alert type="warning">
+        <img [src]="this.choosenObject.imagen" style="height: 100px;"/>
+        {{ targetValue | currency:'USD':true:'1.0-0' }}
+      </alert>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+          <img  #avatar src='../assets/img/Conejo.jpg' class="avatar">
+          <div class="progress">
+            <div class="progress-bar progress-bar-primary" [ngStyle]="{'width': calculatePorcentage('primary') + '%'}"></div>
+            <div class="progress-bar progress-bar-info" [ngStyle]="{'width': calculatePorcentage('info') + '%'}"></div>
+            <div class="progress-bar progress-bar-warning" [ngStyle]="{'width': calculatePorcentage('warning') + '%'}"></div>
+            <div class="progress-bar progress-bar-success" [ngStyle]="{'width': calculatePorcentage('success') + '%'}"></div>
+            <div class="progress-bar progress-bar-danger" [ngStyle]="{'width': calculatePorcentage('danger') + '%'}"></div>
+          </div>
+          <progressbar [max]="targetValue" [value]="currValue" [type]="progressType">
+            {{ currValue | currency:'USD':true:'1.0-0' }}
+          </progressbar>
+      </div>
+    </div>
+
+    <!-- billetes -->
+    <div class="row" *ngIf="checkModel.billetes">
+      <div class="col-lg-1 col-md-2 col-sm-6"></div>
+      <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let billete of billetes">
+        
+        <div *ngIf="billete.color == 'primary'" class="panel panel-primary" style="text-align: center">
+          <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+            </div>
+        </div>
+
+        <div *ngIf="billete.color == 'default'" class="panel panel-default" style="text-align: center">
+          <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+            </div>
+        </div>
+
+        <div *ngIf="billete.color == 'info'" class="panel panel-info" style="text-align: center">
+          <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+            </div>
+        </div>
+
+        <div *ngIf="billete.color == 'warning'" class="panel panel-warning" style="text-align: center">
+          <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+            </div>
+        </div>
+
+        <div *ngIf="billete.color == 'success'" class="panel panel-success" style="text-align: center">
+          <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+            </div>
+        </div>
+
+         <div *ngIf="billete.color == 'danger'" class="panel panel-danger" style="text-align: center">
+          <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- monedas -->
+    <div class="row" *ngIf="checkModel.monedas">
+      <div class="col-lg-1 col-md-2 col-sm-6"></div>
+      <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let moneda of monedas">
+
+        <div *ngIf="moneda.color == 'primary'" class="panel panel-primary" style="text-align: center">
+          <div class="panel-heading"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
+            </div>
+        </div>
+
+         <div *ngIf="moneda.color == 'default'" class="panel panel-default" style="text-align: center">
+          <div class="panel-heading"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
+            </div>
+        </div>
+
+         <div *ngIf="moneda.color == 'info'" class="panel panel-info" style="text-align: center">
+          <div class="panel-heading"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
+            </div>
+        </div>
+
+         <div *ngIf="moneda.color == 'warning'" class="panel panel-warning" style="text-align: center">
+          <div class="panel-heading"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
+            </div>
+        </div>
+
+         <div *ngIf="moneda.color == 'success'" class="panel panel-success" style="text-align: center">
+          <div class="panel-heading"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
+            <div class="panel-body">
+            <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
+              <div class="btn-group-vertical" role="group" style="float: left">
+                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+              </div>
+
+              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h1>¡¡Ganaste!!</h1>
+          <button type="button" class="btn btn-success" (click)="goToMenu()">
+            Menu
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

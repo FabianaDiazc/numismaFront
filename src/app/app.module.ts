@@ -16,6 +16,7 @@ import { SignupComponent } from './components/signup/signup';
 import { MenuComponent } from './components/menu/menu.component';
 import { ObjectSelectorComponent } from './components/object-selector/object-selector.component';
 import { BalanzaComponent } from './components/balanza/balanza';
+import { RectaNumericaColoresComponent } from './components/recta-numerica-colores/recta-numerica-colores';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'recta-numerica', component: RectaNumericaComponent },
   { path: 'balanza', component: BalanzaComponent },
+  { path: 'recta-numerica-colores', component: RectaNumericaColoresComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
@@ -34,7 +36,8 @@ const appRoutes: Routes = [
     SignupComponent,
     MenuComponent,
     ObjectSelectorComponent,
-    BalanzaComponent
+    BalanzaComponent,
+    RectaNumericaColoresComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -50,7 +53,8 @@ const appRoutes: Routes = [
   providers: [
     UsuarioService,
     ObjetoService,
-    BalanzaComponent
+    BalanzaComponent,
+    RectaNumericaColoresComponent
   ],
   bootstrap: [AppComponent]
 })
