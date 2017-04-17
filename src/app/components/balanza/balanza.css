@@ -31,7 +31,13 @@ button {
 
 .avatar {
   position: relative;
-  height: 120px;
+  height: 30px;
+  left: -30px;
+}
+
+.avatar2 {
+  position: relative;
+  height: 150px;
   left: -30px;
 }
 

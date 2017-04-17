@@ -43,16 +43,21 @@
   <div *ngIf="choosenObject">
     <div  class="row top-buffer">
      
-      <div class="col-lg-3">
+      <div class="col-lg-2">
          <alert [type]="progressType">
-          <img  #avatar [src]="usuario.avatar_balanza" class="avatar">
           tu valor: {{ currValue | currency:'USD':true:'1.0-0' }}
          </alert>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-2">
+        <img  #avatar [src]="usuario.avatar_balanza" class="avatar">
+      </div>
+      <div class="col-lg-4">
         <img [src]="balanzas[balanzaIndex]" class="balanza"/>
       </div>
-       <div class="col-lg-3">
+      <div class="col-lg-2">
+        <img  #avatar2 [src]="usuario.avatar_balanza" class="avatar2">
+      </div>
+       <div class="col-lg-2">
         <alert type="warning">
           <img [src]="this.choosenObject.imagen" style="height: 100px;"/>
           {{ targetValue | currency:'USD':true:'1.0-0' }}

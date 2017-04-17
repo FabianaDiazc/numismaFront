@@ -22,9 +22,7 @@ export class Usuario {
             this.avatar_recta = data.avatar_recta;
             this.avatar_balanza = data.avatar_balanza;
         } else {
-            console.log(data.avatarRecta);
             this.avatar_recta = SERVER_URL + data.avatarRecta.imagen;
-            console.log(this.avatar_recta);
             this.avatar_balanza = SERVER_URL + data.avatarBalanza.imagen;
         }
     }

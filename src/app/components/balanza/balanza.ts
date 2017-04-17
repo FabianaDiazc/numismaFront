@@ -200,25 +200,32 @@ export class BalanzaComponent {
         if(percentage < 1) {
 
             if(percentage <= 0.25) {
+                this.avatar.nativeElement.style.height = '50px';
                 this.balanzaIndex = 6;
             } else if (percentage <= 0.5) {
+                this.avatar.nativeElement.style.height = '100px';
                 this.balanzaIndex = 5;
             } else {
+                this.avatar.nativeElement.style.height = '130px';
                 this.balanzaIndex = 4;
             }
-
+          
         } else if (percentage > 1) {
             
             if(percentage <= 1.5) {
+                this.avatar.nativeElement.style.height = '180px';
                 this.balanzaIndex = 2;
             } else if (percentage <= 2) {
+                this.avatar.nativeElement.style.height = '200px';
                 this.balanzaIndex = 1;
             } else {
+                this.avatar.nativeElement.style.height = '220px';
                 this.balanzaIndex = 0;
             }
             
         } else {
             // valor exacto
+            this.avatar.nativeElement.style.height = '150px';
             this.balanzaIndex = 3;
             this.showChildModal();
         }
@@ -245,6 +252,7 @@ export class BalanzaComponent {
     onVoted(obj: Objeto) {
         this.choosenObject = obj;
         this.targetValue = this.choosenObject.valor;
+        this.avatar.nativeElement.style.height = '0px';
     }
 
     public showChildModal():void {
