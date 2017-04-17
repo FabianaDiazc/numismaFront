@@ -56,6 +56,7 @@ export class BalanzaComponent {
     editTarget: boolean;
     usuario: Usuario;
     choosenObject: Objeto;
+    valueSelected: Boolean;
 
     @ViewChild('childModal') public childModal:ModalDirective;
     @ViewChild('avatar') avatar: ElementRef;
@@ -147,6 +148,7 @@ export class BalanzaComponent {
     constructor(private usuarioService: UsuarioService,
                 private router: Router,)
     {
+        this.valueSelected = false;
         this.balanzaIndex = this.balanzas.length -1;
         this.isLoading = true;
         this.targetValue = 57000;
@@ -252,7 +254,12 @@ export class BalanzaComponent {
     onVoted(obj: Objeto) {
         this.choosenObject = obj;
         this.targetValue = this.choosenObject.valor;
-        this.avatar.nativeElement.style.height = '0px';
+        this.valueSelected = true;
+    }
+
+    onVotedRandom(val: number) {
+        this.targetValue = val;
+        this.valueSelected = true;
     }
 
     public showChildModal():void {

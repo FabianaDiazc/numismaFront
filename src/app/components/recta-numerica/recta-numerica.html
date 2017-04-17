@@ -31,19 +31,20 @@
   <div class="spinner" *ngIf="isLoading"></div>
 </div>
 <div class="container" *ngIf="!isLoading">
-  <div *ngIf="!choosenObject">
+  <div *ngIf="!valueSelected">
     <div class="row">
       <div class="col col-lg-6 col-lg-offset-3">
     <alert><strong>Juego: Recta numérica</strong></alert>
       </div>
     </div>
   </div>
-  <object-selector *ngIf="!choosenObject" (onVoted)="onVoted($event)"></object-selector>
+  <random-selector *ngIf="!valueSelected" (onVotedRandom)="onVotedRandom($event)" type="monedas"></random-selector>
+  <!--<object-selector *ngIf="!choosenObject" (onVoted)="onVoted($event)"></object-selector>-->
   <!--<alert type="success" *ngIf="this.progressType == 'success'">Success</alert>-->
-  <div *ngIf="choosenObject">
+  <div *ngIf="valueSelected">
     <div  class="row top-buffer">
       <alert type="warning" *ngIf="!editTarget">
-        <img [src]="this.choosenObject.imagen" style="height: 100px;"/>
+        <img *ngIf="this.choosenObject" [src]="this.choosenObject.imagen" style="height: 100px;"/>
         {{ targetValue | currency:'USD':true:'1.0-0' }}
         <button class="btn btn-warning" style="font-size: 1em">
           <span class="glyphicon glyphicon-pencil" (click)="editTarget = true"></span>

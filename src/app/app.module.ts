@@ -16,6 +16,7 @@ import { LoginComponent } from './components/login/login';
 import { SignupComponent } from './components/signup/signup';
 import { MenuComponent } from './components/menu/menu.component';
 import { ObjectSelectorComponent } from './components/object-selector/object-selector.component';
+import { RandomSelectorComponent } from './components/random-selector/random-selector';
 import { BalanzaComponent } from './components/balanza/balanza';
 import { RectaNumericaColoresComponent } from './components/recta-numerica-colores/recta-numerica-colores';
 
@@ -37,6 +38,7 @@ const appRoutes: Routes = [
     SignupComponent,
     MenuComponent,
     ObjectSelectorComponent,
+    RandomSelectorComponent,
     BalanzaComponent,
     RectaNumericaColoresComponent
   ],

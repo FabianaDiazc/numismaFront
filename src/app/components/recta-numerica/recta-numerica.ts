@@ -56,6 +56,7 @@ export class RectaNumericaComponent {
     editTarget: boolean;
     usuario: Usuario;
     choosenObject: Objeto;
+    valueSelected: Boolean;
 
     @ViewChild('childModal') public childModal:ModalDirective;
     @ViewChild('avatar') avatar: ElementRef;
@@ -135,6 +136,7 @@ export class RectaNumericaComponent {
     constructor(private usuarioService: UsuarioService,
                 private router: Router,)
     {
+        this.valueSelected = false;
         this.isLoading = true;
         this.targetValue = 57000;
         this.currValue = 0;
@@ -216,6 +218,12 @@ export class RectaNumericaComponent {
     onVoted(obj: Objeto) {
         this.choosenObject = obj;
         this.targetValue = this.choosenObject.valor;
+        this.valueSelected = true;
+    }
+
+    onVotedRandom(val: number) {
+        this.targetValue = val;
+        this.valueSelected = true;
     }
 
     public showChildModal():void {
