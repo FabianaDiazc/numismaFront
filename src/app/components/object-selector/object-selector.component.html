@@ -3,18 +3,25 @@
         <div class="panel panel-default">
             <div class="panel-heading c-list">
                 <span class="title">Selecciona el objeto</span>
+                <button class="btn btn-warning" (click)="done()">
+                    listo
+                </button>
             </div>
             
-            <ul class="list-group" id="contact-list" *ngFor="let obj of objetos">
+            <ul class="list-group" id="contact-list" *ngFor="let obj of objetos; let i = index">
+              
               <li class="list-group-item">
                   <div class="col-xs-12 col-sm-3">
                       <img [src]="obj.imagen" class="img-responsive img-circle" />
                   </div>
-                  <div class="col-xs-12 col-sm-9">
+                  <div class="col-xs-12 col-sm-6">
                       <span class="name"> {{ obj.nombre }} </span><br/>
-                      <button class="btn btn-warning pull-right" (click)="select(obj)">
+                      <!--<button class="btn btn-warning pull-right" (click)="select(obj)">
                         Seleccionar
-                      </button>
+                      </button>-->
+                  </div>
+                  <div class="col-xs-12 col-sm-3">
+                    <input type="checkbox" #checkbox (change)="check(i)">
                   </div>
                   <div class="clearfix"></div>
               </li>

@@ -55,7 +55,7 @@ export class RectaNumericaColoresComponent {
     checkModel:any = {monedas: true, billetes: false};
     editTarget: boolean;
     usuario: Usuario;
-    choosenObject: Objeto;
+    choosenObject: Objeto[];
     textEstoy: string = 'Monedas';
 
     @ViewChild('childModal') public childModal:ModalDirective;
@@ -222,9 +222,12 @@ export class RectaNumericaColoresComponent {
         this.router.navigate(['/menu']);
     }
 
-    onVoted(obj: Objeto) {
+    onVoted(obj: Objeto[]) {
         this.choosenObject = obj;
-        this.targetValue = this.choosenObject.valor;
+        let val = 0;
+        for(let obj of this.choosenObject)
+            val += obj.valor;
+        this.targetValue = val;
     }
 
     public showChildModal():void {

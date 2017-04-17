@@ -40,8 +40,10 @@
   <div *ngIf="choosenObject">
     <div  class="row top-buffer">
       <alert type="warning">
-        <img [src]="this.choosenObject.imagen" style="height: 100px;"/>
-        {{ targetValue | currency:'USD':true:'1.0-0' }}
+        <span *ngFor="let obj of choosenObject">
+        <img [src]="obj.imagen" style="height: 100px;"/>
+        {{ obj.valor | currency:'USD':true:'1.0-0' }}
+        </span>
       </alert>
     </div>
     <div class="row">

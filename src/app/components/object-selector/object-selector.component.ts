@@ -10,16 +10,22 @@ import { Objeto } from '../../models/objeto';
 export class ObjectSelectorComponent implements OnInit {
 
   objetos: Objeto[];
-  @Output() onVoted = new EventEmitter<Objeto>();
+  checked: boolean[];
+  @Output() onVoted = new EventEmitter<Objeto[]>();
 
   constructor(private objetoService: ObjetoService) 
-  { }
+  { 
+    this.checked = [];
+  }
 
   ngOnInit() {
     this.objetoService.getObjetos().subscribe(
       (objetos) => {
         this.objetos = objetos;
         console.log(this.objetos);
+        for(let obj of this.objetos) {
+          this.checked.push(false);
+        }
       },
       (error) => {
         console.log(error);
@@ -27,8 +33,23 @@ export class ObjectSelectorComponent implements OnInit {
     )
   }
 
-  select(obj: Objeto) {
-    this.onVoted.emit(obj);
+  // select(obj: Objeto) {
+  //   this.onVoted.emit(obj);
+  // }
+
+  check(index: number) {
+    this.checked[index] = !this.checked[index];
   }
-  
+
+  done() {
+    let send: Objeto[] = [];
+    for(let i = 0; i < this.objetos.length; i++) {
+      if(this.checked[i]) send.push(this.objetos[i]);
+    }
+    if(send.length == 0) {
+
+    } else {
+      this.onVoted.emit(send);
+    }
+  }  
 }
