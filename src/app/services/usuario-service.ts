@@ -31,6 +31,7 @@ export class UsuarioService {
   }
 
   getAuthCustomer(): Observable<Usuario> {
+    this.token = sessionStorage.getItem('token');
     let authUsuarioUrl: string = `${SERVER_URL}/api/usuario/authenticated/`;
     var headers = new Headers({ 'Content-Type': 'application/json', 
                                 'Accept': 'application/json',

@@ -156,7 +156,7 @@ export class RectaNumericaComponent {
             )
         }
     }
-
+    
     toggleMove() {
         this.state = (this.state === 'inactive' ? 'active' : 'inactive');
     }
@@ -187,8 +187,11 @@ export class RectaNumericaComponent {
         console.log(percentage);
         if(percentage > 1) {
             this.avatar.nativeElement.style.left = 'calc(100% - 30px)';
+            this.avatar.nativeElement.style.height = '150px';
         } else {
             this.avatar.nativeElement.style.left = `calc(${percentage*100}% - 30px)`;
+            console.log(percentage*100);
+            this.avatar.nativeElement.style.height = 150*percentage + 'px';
         }
         if(this.currValue < this.targetValue) {
             this.progressType = 'info';

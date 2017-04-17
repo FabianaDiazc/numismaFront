@@ -45,7 +45,7 @@
      
       <div class="col-lg-3">
          <alert [type]="progressType">
-          <img  #avatar src='../assets/img/Conejo.jpg' class="avatar">
+          <img  #avatar [src]="usuario.avatar_balanza" class="avatar">
           tu valor: {{ currValue | currency:'USD':true:'1.0-0' }}
          </alert>
       </div>

@@ -66,6 +66,30 @@
                     * requerido.
                 </div>
 
+                <div class="input-group">
+                    <span class="input-group-addon">Avatar Recta: </span>
+                    <select class="form-control" [(formControl)]="avatarRecta">
+                        <option [value]="avatar.id" *ngFor="let avatar of avatarsRecta"> 
+                            <img class="icon-option" [src]="avatar.imagen" /> {{ avatar.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="errorBox" *ngIf="!avatarRecta.valid  && (avatarRecta.dirty || submitAttempt)">
+                    * requerido.
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Avatar Balanza: </span>
+                    <select class="form-control" [(formControl)]="avatarBalanza">
+                        <option [value]="avatar.id" *ngFor="let avatar of avatarsBalanza"> 
+                            <img class="icon-option" [src]="avatar.imagen" /> {{ avatar.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="errorBox" *ngIf="!avatarBalanza.valid  && (avatarBalanza.dirty || submitAttempt)">
+                    * requerido.
+                </div>
+
                 <div class="form-group">
                     <!-- Button -->
                     <div class="col-sm-12 controls">
