@@ -66,4 +66,8 @@ export class LoginComponent implements OnInit{
             this.submitAttempt = true;
         }
     }
+
+    goToSingUp() {
+        this.router.navigate(['/singup']);
+    }
 }
