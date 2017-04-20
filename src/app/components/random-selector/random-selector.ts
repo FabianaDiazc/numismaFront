@@ -18,11 +18,13 @@ export class RandomSelectorComponent implements OnInit {
 
   ngOnInit() {
     if(this.type == 'billetes') {
+      console.log( 'billetes');
       let min = 0;
       let max = 200
       this.valores = [];
       for(let i = 0; i < 10; i++) {
-        this.valores.push( ~~(Math.random() * (max - min) + min) * 1000)
+        let val = (~~(Math.random() * (max - min) + min)) * 1000;
+        this.valores.push(val);
       }
    } else if(this.type == 'monedas') {
      let min = 0;

@@ -4,10 +4,10 @@
       <a class="navbar-brand" href="#">
         <img alt="Brand" src="/assets/img/logoLG.png" style="height: 100%">
       </a>
-      <div class="btn-group">
+      <!--<div class="btn-group">
         <label class="btn btn-warning navbar-btn" [(ngModel)]="checkModel.monedas" btnCheckbox>Monedas</label>
         <label class="btn btn-warning navbar-btn" [(ngModel)]="checkModel.billetes" btnCheckbox>Billetes</label>
-      </div>
+      </div>-->
     </div>
 
     <ul class="nav navbar-nav navbar-right">
@@ -38,7 +38,7 @@
       </div>
     </div>
   </div>
-   <random-selector *ngIf="!valueSelected" (onVotedRandom)="onVotedRandom($event)" type="monedas"></random-selector>
+   <random-selector *ngIf="type && !valueSelected" (onVotedRandom)="onVotedRandom($event)" [type]="type"></random-selector>
   <!--<object-selector *ngIf="!choosenObject" (onVoted)="onVoted($event)"></object-selector>-->
   <!--<alert type="success" *ngIf="this.progressType == 'success'">Success</alert>-->
   <div *ngIf="valueSelected">

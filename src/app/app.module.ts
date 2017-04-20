@@ -9,6 +9,7 @@ import { ProgressbarModule, ButtonsModule, AlertModule, ModalModule } from 'ng2-
 import { UsuarioService } from './services/usuario-service';
 import { ObjetoService } from './services/objeto.service';
 import { AvatarService } from './services/avatar-service';
+import { NivelService } from './services/nivel-service';
 
 import { AppComponent } from './app.component';
 import { RectaNumericaComponent } from './components/recta-numerica/recta-numerica';
@@ -58,7 +59,8 @@ const appRoutes: Routes = [
     ObjetoService,
     AvatarService,
     BalanzaComponent,
-    RectaNumericaColoresComponent
+    RectaNumericaColoresComponent,
+    NivelService
   ],
   bootstrap: [AppComponent]
 })

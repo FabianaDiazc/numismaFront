@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from '../../services/usuario-service';
-import { Usuario } from '../../models/usuario';
 import { Router }  from '@angular/router';
+
+import { UsuarioService } from '../../services/usuario-service';
+import { NivelService } from '../../services/nivel-service';
+import { Usuario } from '../../models/usuario';
+import { Puntaje } from '../../models/puntaje';
 
 @Component({
   selector: 'app-menu',
@@ -12,15 +15,17 @@ export class MenuComponent implements OnInit {
 
   isLoading: boolean;
   usuario: Usuario;
-  juegos: { nombre: string, url: string, image: string}[];
+  puntajes: Puntaje[];
+  juegos: { nombre: string, name: string, url: string, image: string}[];
 
   constructor(private usuarioService: UsuarioService,
-                private router: Router,) 
+              private router: Router,
+              private nivelService: NivelService) 
   { 
       this.juegos = [
-          { nombre: 'Recta Numérica', url: '/recta-numerica', image: '/assets/img/recta-numerica.jpg' },
-          { nombre: 'Balanza', url: '/balanza', image: '/assets/img/recta-numerica.jpg' },
-          { nombre: 'Recta Numérica Colores', url: '/recta-numerica-colores', image: '/assets/img/recta-numerica.jpg' }
+          { nombre: 'Recta Numérica', name: 'RECTA_NUMERICA',  url: '/recta-numerica', image: '/assets/img/recta-numerica.jpg' },
+          { nombre: 'Balanza', name: 'BALANZA', url: '/balanza', image: '/assets/img/recta-numerica.jpg' },
+          { nombre: 'Recta Numérica Colores', name: 'RECTA_NUMERICA_COLOR', url: '/recta-numerica-colores', image: '/assets/img/recta-numerica.jpg' }
       ]
   }
 
@@ -35,7 +40,18 @@ export class MenuComponent implements OnInit {
                 this.usuarioService.setUsuario(usuario);
                 this.usuario = usuario;
                 console.log(this.usuario);
-                this.isLoading = false;
+                this.nivelService.getPuntajesJuegoActual().subscribe(
+                    (puntajes) => { 
+                        this.puntajes = puntajes; 
+                        console.log(this.puntajes);
+                        this.isLoading = false;
+                    },
+                    (error) => { 
+                        console.log(error); 
+                        this.isLoading = false;
+                    }
+                );
+                
             },
             (error) => {
                 this.router.navigate(['/login']);
@@ -44,12 +60,21 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  goToRectaNumerica(url) {
+  goToGame(url) {
       this.router.navigate([url]);
+    //   this.router.navigate([url, { puntajes: this.puntajes }]);
   }
 
   logout() {
     sessionStorage.clear();
     this.router.navigate(['/login']);
+  }
+
+  isDisabled(juego, tipo: string): boolean {
+    let puntaje = this.puntajes.filter(puntaje => puntaje.nivel.tipo == tipo && puntaje.nivel.nombre == juego.name);
+    if(puntaje[0].estado == "BLOQUEADO")
+        return true;
+    else
+        return false;
   }
 }

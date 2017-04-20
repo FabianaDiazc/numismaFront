@@ -7,13 +7,16 @@ import {
     animate,
     keyframes,
     ViewChild,
-    ElementRef
+    ElementRef,
+    OnInit
  } from '@angular/core';
 import { UsuarioService } from '../../services/usuario-service';
 import { Usuario } from '../../models/usuario';
 import { Objeto } from '../../models/objeto';
 import { Router }  from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/modal';
+import { NivelService } from '../../services/nivel-service';
+import { Puntaje } from '../../models/puntaje';
 
 @Component({
   selector: 'recta-numerica',
@@ -46,7 +49,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 
     ]
   })
-export class RectaNumericaComponent {
+export class RectaNumericaComponent implements OnInit {
     isLoading: boolean;
     state: string = 'inactive';
     currValue: number;
@@ -132,9 +135,13 @@ export class RectaNumericaComponent {
             imgUrl: "http://www.globocambio.co/img/monedas/1000-peso-new-back.jpg"
         }
     ];
+    puntajes: Puntaje[];
+    type: string;
+    currPuntaje: Puntaje;
 
     constructor(private usuarioService: UsuarioService,
-                private router: Router,)
+                private router: Router,
+                private nivelService: NivelService)
     {
         this.valueSelected = false;
         this.isLoading = true;
@@ -158,7 +165,34 @@ export class RectaNumericaComponent {
             )
         }
     }
-    
+
+    ngOnInit() {
+        this.nivelService.getPuntajesJuegoActual().subscribe(
+            (puntajes) => { 
+                this.puntajes = puntajes; 
+                console.log(this.puntajes);
+                this.currPuntaje = this.puntajes.find(puntaje =>  puntaje.estado == 'EN_PROGRESO');
+                this.type = this.currPuntaje.nivel.tipo == 'M' ? 'monedas' : this.currPuntaje.nivel.tipo == 'B' ? 'billetes' : 'both';
+                if(this.type == 'monedas') {
+                    this.checkModel.monedas = true;
+                    this.checkModel.billetes = false;
+                } else if (this.type == 'billetes') {
+                    this.checkModel.monedas = false;
+                    this.checkModel.billetes = true;
+                } else {
+                    this.checkModel.monedas = true;
+                    this.checkModel.billetes = true;
+                }
+                console.log(this.type);
+                this.isLoading = false;
+            },
+            (error) => { 
+                console.log(error); 
+                this.isLoading = false;
+            }
+        );
+    }
+
     toggleMove() {
         this.state = (this.state === 'inactive' ? 'active' : 'inactive');
     }
@@ -206,6 +240,29 @@ export class RectaNumericaComponent {
         console.log(this.progressType);
     }
 
+    terminarNivel() {
+        let nextPuntaje = this.puntajes.find(puntaje => puntaje.nivel.id == this.currPuntaje.nivel.siguiente);
+        this.nivelService.terminarNivel(this.currPuntaje).subscribe(
+            (data) => {
+                if(nextPuntaje && nextPuntaje.estado != 'EN_PROGRESO')
+                    this.nivelService.actualizarNivel(nextPuntaje).subscribe(
+                        (data) => {
+                            this.router.navigate(['/balanza']);
+                        },
+                        (error) => {
+                            console.log(error);
+                        }
+                    )
+                else {
+                    this.router.navigate(['/balanza']);
+                }
+            },
+            (error) => {
+                console.log(error);
+            }
+        )
+    }
+
     logout() {
         sessionStorage.clear();
         this.router.navigate(['/login']);
@@ -231,6 +288,6 @@ export class RectaNumericaComponent {
     }
 
     continue() {
-        this.router.navigate(['/balanza']);
+        this.terminarNivel();
     }
 }

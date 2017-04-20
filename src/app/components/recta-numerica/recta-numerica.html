@@ -4,10 +4,10 @@
       <a class="navbar-brand" href="#">
         <img alt="Brand" src="/assets/img/logoLG.png" style="height: 100%">
       </a>
-      <div class="btn-group">
+      <!--<div class="btn-group">
         <label class="btn btn-warning navbar-btn" [(ngModel)]="checkModel.monedas" btnCheckbox>Monedas</label>
         <label class="btn btn-warning navbar-btn" [(ngModel)]="checkModel.billetes" btnCheckbox>Billetes</label>
-      </div>
+      </div>-->
     </div>
 
     <ul class="nav navbar-nav navbar-right">
@@ -38,26 +38,14 @@
       </div>
     </div>
   </div>
-  <random-selector *ngIf="!valueSelected" (onVotedRandom)="onVotedRandom($event)" type="monedas"></random-selector>
+  <random-selector *ngIf="type && !valueSelected" (onVotedRandom)="onVotedRandom($event)" [type]="type"></random-selector>
   <!--<object-selector *ngIf="!choosenObject" (onVoted)="onVoted($event)"></object-selector>-->
   <!--<alert type="success" *ngIf="this.progressType == 'success'">Success</alert>-->
   <div *ngIf="valueSelected">
     <div  class="row top-buffer">
-      <alert type="warning" *ngIf="!editTarget">
+      <alert type="warning">
         <img *ngIf="this.choosenObject" [src]="this.choosenObject.imagen" style="height: 100px;"/>
         {{ targetValue | currency:'USD':true:'1.0-0' }}
-        <button class="btn btn-warning" style="font-size: 1em">
-          <span class="glyphicon glyphicon-pencil" (click)="editTarget = true"></span>
-        </button>
-      </alert>
-      <alert type="warning" *ngIf="editTarget">
-        <div class="input-group" style="width: 80%; float: left;">
-          <span class="input-group-addon" id="basic-addon1">@</span>
-          <input type="number" class="form-control" [(ngModel)]="targetValue" aria-describedby="basic-addon1">
-        </div>
-        <button class="btn btn-warning" style="font-size: 1em" (click)="editTarget = false; calculateColor()">
-          <span class="glyphicon glyphicon-ok"></span>
-        </button>
       </alert>
     </div>
     <div class="row">
