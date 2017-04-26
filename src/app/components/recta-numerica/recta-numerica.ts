@@ -13,7 +13,7 @@ import {
 import { UsuarioService } from '../../services/usuario-service';
 import { Usuario } from '../../models/usuario';
 import { Objeto } from '../../models/objeto';
-import { Router }  from '@angular/router';
+import { Router, ActivatedRoute }  from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { NivelService } from '../../services/nivel-service';
 import { Puntaje } from '../../models/puntaje';
@@ -138,9 +138,12 @@ export class RectaNumericaComponent implements OnInit {
     puntajes: Puntaje[];
     type: string;
     currPuntaje: Puntaje;
+    nivel: number;
+    tipos: string[] = ['M', 'B', '2', 'Min'];
 
     constructor(private usuarioService: UsuarioService,
                 private router: Router,
+                private route: ActivatedRoute,
                 private nivelService: NivelService)
     {
         this.valueSelected = false;
@@ -167,30 +170,39 @@ export class RectaNumericaComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.nivelService.getPuntajesJuegoActual().subscribe(
-            (puntajes) => { 
-                this.puntajes = puntajes; 
-                console.log(this.puntajes);
-                this.currPuntaje = this.puntajes.find(puntaje =>  puntaje.estado == 'EN_PROGRESO');
-                this.type = this.currPuntaje.nivel.tipo == 'M' ? 'monedas' : this.currPuntaje.nivel.tipo == 'B' ? 'billetes' : 'both';
-                if(this.type == 'monedas') {
-                    this.checkModel.monedas = true;
-                    this.checkModel.billetes = false;
-                } else if (this.type == 'billetes') {
-                    this.checkModel.monedas = false;
-                    this.checkModel.billetes = true;
-                } else {
-                    this.checkModel.monedas = true;
-                    this.checkModel.billetes = true;
+        this.route.params.subscribe(params => {
+            this.nivel = +params['nivel'];
+            console.log('entre con nivel: ' + this.nivel);
+            this.nivelService.getPuntajesJuegoActual().subscribe(
+                (puntajes) => { 
+                    this.puntajes = puntajes; 
+                    console.log(this.puntajes);
+                    this.currPuntaje = this.puntajes.find(puntaje =>  puntaje.nivel.nombre == 'RECTA_NUMERICA' && puntaje.nivel.tipo == this.tipos[this.nivel]);
+                    console.log(this.currPuntaje);
+                    if(this.currPuntaje.estado == 'BLOQUEADO') {
+                        this.router.navigate(['/menu']);
+                    }
+
+                    this.type = this.currPuntaje.nivel.tipo == 'M' ? 'monedas' : this.currPuntaje.nivel.tipo == 'B' ? 'billetes' : 'both';
+                    if(this.type == 'monedas') {
+                        this.checkModel.monedas = true;
+                        this.checkModel.billetes = false;
+                    } else if (this.type == 'billetes') {
+                        this.checkModel.monedas = false;
+                        this.checkModel.billetes = true;
+                    } else {
+                        this.checkModel.monedas = true;
+                        this.checkModel.billetes = true;
+                    }
+                    console.log(this.type);
+                    this.isLoading = false;
+                },
+                (error) => { 
+                    console.log(error); 
+                    this.isLoading = false;
                 }
-                console.log(this.type);
-                this.isLoading = false;
-            },
-            (error) => { 
-                console.log(error); 
-                this.isLoading = false;
-            }
-        );
+            );
+        });
     }
 
     toggleMove() {
@@ -244,17 +256,17 @@ export class RectaNumericaComponent implements OnInit {
         let nextPuntaje = this.puntajes.find(puntaje => puntaje.nivel.id == this.currPuntaje.nivel.siguiente);
         this.nivelService.terminarNivel(this.currPuntaje).subscribe(
             (data) => {
-                if(nextPuntaje && nextPuntaje.estado != 'EN_PROGRESO')
+                if(nextPuntaje && nextPuntaje.estado == 'BLOQUEADO')
                     this.nivelService.actualizarNivel(nextPuntaje).subscribe(
                         (data) => {
-                            this.router.navigate(['/balanza']);
+                            this.router.navigate(['/balanza', this.nivel]);
                         },
                         (error) => {
                             console.log(error);
                         }
                     )
                 else {
-                    this.router.navigate(['/balanza']);
+                    this.router.navigate(['/balanza', this.nivel]);
                 }
             },
             (error) => {

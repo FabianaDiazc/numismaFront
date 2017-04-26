@@ -60,8 +60,8 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  goToGame(url) {
-      this.router.navigate([url]);
+  goToGame(url: string, nivel: number) {
+      this.router.navigate([url, nivel]);
     //   this.router.navigate([url, { puntajes: this.puntajes }]);
   }
 

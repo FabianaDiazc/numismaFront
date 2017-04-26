@@ -40,17 +40,17 @@
                   </div>
                   <div class="col-xs-12 col-sm-7 col-lg-7">
                     <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" *ngIf="!isDisabled(juego, 'M')" class="btn btn-warning" (click)="goToGame(juego.url)">Nivel1</button>
-                        <button type="button" *ngIf="isDisabled(juego, 'M')" disabled class="btn btn-warning" (click)="goToGame(juego.url)">Nivel1</button>
+                        <button type="button" *ngIf="!isDisabled(juego, 'M')" class="btn btn-warning" (click)="goToGame(juego.url, 0)">Nivel1</button>
+                        <button type="button" *ngIf="isDisabled(juego, 'M')" disabled class="btn btn-warning">Nivel1</button>
 
-                        <button type="button" *ngIf="!isDisabled(juego, 'B')" class="btn btn-warning" (click)="goToGame(juego.url)">Nivel2</button>
-                        <button type="button" *ngIf="isDisabled(juego, 'B')" disabled class="btn btn-warning" (click)="goToGame(juego.url)">Nivel2</button>
+                        <button type="button" *ngIf="!isDisabled(juego, 'B')" class="btn btn-warning" (click)="goToGame(juego.url, 1)">Nivel2</button>
+                        <button type="button" *ngIf="isDisabled(juego, 'B')" disabled class="btn btn-warning">Nivel2</button>
 
-                        <button type="button" *ngIf="!isDisabled(juego, '2')" class="btn btn-warning" (click)="goToGame(juego.url)">Nivel3</button>
-                        <button type="button" *ngIf="isDisabled(juego, '2')" disabled class="btn btn-warning" (click)="goToGame(juego.url)">Nivel3</button>
+                        <button type="button" *ngIf="!isDisabled(juego, '2')" class="btn btn-warning" (click)="goToGame(juego.url, 2)">Nivel3</button>
+                        <button type="button" *ngIf="isDisabled(juego, '2')" disabled class="btn btn-warning">Nivel3</button>
 
-                        <button type="button" *ngIf="!isDisabled(juego, 'MIN')" class="btn btn-warning" (click)="goToGame(juego.url)">Nivel4</button>
-                        <button type="button" *ngIf="isDisabled(juego, 'MIN')" disabled class="btn btn-warning" (click)="goToGame(juego.url)">Nivel4</button>
+                        <button type="button" *ngIf="!isDisabled(juego, 'MIN')" class="btn btn-warning" (click)="goToGame(juego.url, 3)">Nivel4</button>
+                        <button type="button" *ngIf="isDisabled(juego, 'MIN')" disabled class="btn btn-warning">Nivel4</button>
                       </div>
                   </div>
                   <div class="clearfix"></div>

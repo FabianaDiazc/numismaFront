@@ -25,9 +25,9 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'singup', component: SignupComponent },
   { path: 'menu', component: MenuComponent },
-  { path: 'recta-numerica', component: RectaNumericaComponent },
-  { path: 'balanza', component: BalanzaComponent },
-  { path: 'recta-numerica-colores', component: RectaNumericaColoresComponent },
+  { path: 'recta-numerica/:nivel', component: RectaNumericaComponent },
+  { path: 'balanza/:nivel', component: BalanzaComponent },
+  { path: 'recta-numerica-colores/:nivel', component: RectaNumericaColoresComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
