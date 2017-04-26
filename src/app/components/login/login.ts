@@ -44,9 +44,12 @@ export class LoginComponent implements OnInit{
             (usuario) => {
                 this.router.navigate(['/menu']);
                 this.isLoading = false;
+                console.log('bien');
             },
             (error) => {
                 this.isLoading = false;
+                console.log('mal');
+                console.log(error);
             }
         )
     }

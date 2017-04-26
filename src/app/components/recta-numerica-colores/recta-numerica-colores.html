@@ -37,7 +37,7 @@
   </div>
   <object-selector *ngIf="!choosenObject" (onVoted)="onVoted($event)"></object-selector>
   <!--<alert type="success" *ngIf="this.progressType == 'success'">Success</alert>-->
-  <div *ngIf="choosenObject">
+  <div *ngIf="choosenObject && !showVueltasSelector">
     <div  class="row top-buffer">
       <alert type="warning">
         <span *ngFor="let obj of choosenObject">
@@ -50,11 +50,17 @@
       <div class="col-lg-12">
           <!--<img  #avatar src='../assets/img/Conejo.jpg' class="avatar">-->
           <div class="progress">
-            <div class="progress-bar progress-bar-primary" [ngStyle]="{'width': calculatePorcentage('primary') + '%'}"></div>
-            <div class="progress-bar progress-bar-info" [ngStyle]="{'width': calculatePorcentage('info') + '%'}"></div>
-            <div class="progress-bar progress-bar-warning" [ngStyle]="{'width': calculatePorcentage('warning') + '%'}"></div>
-            <div class="progress-bar progress-bar-success" [ngStyle]="{'width': calculatePorcentage('success') + '%'}"></div>
-            <div class="progress-bar progress-bar-danger" [ngStyle]="{'width': calculatePorcentage('danger') + '%'}"></div>
+            <div class="progress-bar progress-bar-primary" [ngStyle]="{'width': calculatePorcentageB('primary') + '%'}"></div>
+            <div class="progress-bar progress-bar-info" [ngStyle]="{'width': calculatePorcentageB('info') + '%'}"></div>
+            <div class="progress-bar progress-bar-warning" [ngStyle]="{'width': calculatePorcentageB('warning') + '%'}"></div>
+            <div class="progress-bar progress-bar-success" [ngStyle]="{'width': calculatePorcentageB('success') + '%'}"></div>
+            <div class="progress-bar progress-bar-danger" [ngStyle]="{'width': calculatePorcentageB('danger') + '%'}"></div>
+
+            <div class="progress-bar progress-bar-primary progress-bar-striped" [ngStyle]="{'width': calculatePorcentageM('primary') + '%'}"></div>
+            <div class="progress-bar progress-bar-info progress-bar-striped" [ngStyle]="{'width': calculatePorcentageM('info') + '%'}"></div>
+            <div class="progress-bar progress-bar-warning progress-bar-striped" [ngStyle]="{'width': calculatePorcentageM('warning') + '%'}"></div>
+            <div class="progress-bar progress-bar-success progress-bar-striped" [ngStyle]="{'width': calculatePorcentageM('success') + '%'}"></div>
+            <div class="progress-bar progress-bar-danger progress-bar-striped" [ngStyle]="{'width': calculatePorcentageM('danger') + '%'}"></div>
           </div>
           <progressbar [max]="targetValue" [value]="currValue" [type]="progressType">
             {{ currValue | currency:'USD':true:'1.0-0' }}
@@ -150,11 +156,11 @@
 
     <!-- monedas -->
     <div class="row" *ngIf="checkModel.monedas">
-      <div class="col-lg-1 col-md-2 col-sm-6"></div>
+      <!--<div class="col-lg-1 col-md-2 col-sm-6"></div>-->
       <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let moneda of monedas">
 
         <div *ngIf="moneda.color == 'primary'" class="panel panel-primary" style="text-align: center">
-          <div class="panel-heading"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
+          <div class="panel-heading progress-bar-striped"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
               <div class="btn-group-vertical" role="group" style="float: left">
@@ -167,7 +173,7 @@
         </div>
 
          <div *ngIf="moneda.color == 'default'" class="panel panel-default" style="text-align: center">
-          <div class="panel-heading"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
+          <div class="panel-heading progress-bar-striped"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
               <div class="btn-group-vertical" role="group" style="float: left">
@@ -180,7 +186,7 @@
         </div>
 
          <div *ngIf="moneda.color == 'info'" class="panel panel-info" style="text-align: center">
-          <div class="panel-heading"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
+          <div class="panel-heading progress-bar-striped"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
               <div class="btn-group-vertical" role="group" style="float: left">
@@ -193,7 +199,7 @@
         </div>
 
          <div *ngIf="moneda.color == 'warning'" class="panel panel-warning" style="text-align: center">
-          <div class="panel-heading"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
+          <div class="panel-heading progress-bar-striped"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
               <div class="btn-group-vertical" role="group" style="float: left">
@@ -206,7 +212,7 @@
         </div>
 
          <div *ngIf="moneda.color == 'success'" class="panel panel-success" style="text-align: center">
-          <div class="panel-heading"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
+          <div class="panel-heading progress-bar-striped"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
               <div class="btn-group-vertical" role="group" style="float: left">
@@ -220,6 +226,8 @@
       </div>
     </div>
   </div>
+
+  <vueltas-selector *ngIf="showVueltasSelector" [type]="type" [targetVal]="targetValue" (onVueltasSelected)="onVueltasSelected($event)"></vueltas-selector>
 
   <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">

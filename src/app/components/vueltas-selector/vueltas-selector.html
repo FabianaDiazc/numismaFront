@@ -1,0 +1,40 @@
+<div class="row" *ngIf="!isLoading">
+    <div class="col col-lg-6 col-lg-offset-3">
+    <alert *ngIf="currBillete"><strong>¿Cuales serían las vueltas si pagas {{ targetVal | currency:'USD':true:'1.0-0' }} con {{ multi+1 }} billetes de {{ this.currBillete.value | currency:'USD':true:'1.0-0' }}?</strong></alert>
+    <alert *ngIf="!currBillete && currMoneda"><strong>¿Cuales serían las vueltas si pagas {{ targetVal | currency:'USD':true:'1.0-0' }} con {{ multi+1 }} monedas de {{ this.currMoneda.value | currency:'USD':true:'1.0-0' }}?</strong></alert>
+    </div>
+</div>
+<div class="row" *ngIf="!isLoading">
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading c-list">
+                <span class="title">Selecciona las vueltas correctas</span>
+            </div>
+            
+            <ul class="list-group" id="contact-list" *ngFor="let val of valores">
+              <li class="list-group-item">
+                  <div class="col-xs-12 col-sm-9">
+                      <span class="name"> {{ val | currency:'USD':true:'1.0-0' }} </span><br/>
+                      <button class="btn btn-warning pull-right" (click)="select(val)">
+                        Seleccionar
+                      </button>
+                  </div>
+                  <div class="clearfix"></div>
+              </li>
+            </ul>
+        </div>
+    </div>
+  </div>
+
+  <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h1>Respuesta incorrecta</h1>
+           <button type="button" class="btn btn-success" (click)="retry()">
+            Intenta otra vez
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

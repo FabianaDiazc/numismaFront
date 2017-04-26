@@ -63,6 +63,7 @@ export class RectaNumericaColoresComponent implements OnInit {
     puntajes: Puntaje[];
     type: string;
     currPuntaje: Puntaje;
+    showVueltasSelector: boolean;
 
     @ViewChild('childModal') public childModal:ModalDirective;
     // @ViewChild('avatar') avatar: ElementRef;
@@ -72,7 +73,7 @@ export class RectaNumericaColoresComponent implements OnInit {
         //     value: 1000,
         //     number: 0,
         //     maxNumber: 20,
-        //     color: 'primary',
+        //     color: 'default',
         //     imgUrl: "http://www.colombia.co/wp-content/uploads/2015/08/01.jpg"
         // },
         {
@@ -151,13 +152,14 @@ export class RectaNumericaColoresComponent implements OnInit {
     ];
 
     nivel: number;
-    tipos: string[] = ['M', 'B', '2', 'Min'];
+    tipos: string[] = ['M', 'B', '2', 'MIN'];
 
     constructor(private usuarioService: UsuarioService,
                 private router: Router,
                 private route: ActivatedRoute,
                 private nivelService: NivelService)
     {
+        this.showVueltasSelector = false;
         this.isLoading = true;
         this.targetValue = 57000;
         this.currValue = 0;
@@ -255,7 +257,8 @@ export class RectaNumericaColoresComponent implements OnInit {
             this.progressType = 'danger';
         } else if (this.currValue == this.targetValue) {
             this.progressType = 'success';
-            this.showChildModal();
+            this.showVueltasSelector = true;
+            // this.showChildModal();
         }
         console.log(this.progressType);
     }
@@ -300,6 +303,11 @@ export class RectaNumericaColoresComponent implements OnInit {
         this.targetValue = val;
     }
 
+    onVueltasSelected(val) {
+        this.showVueltasSelector = false;
+        this.showChildModal();
+    }
+
     public showChildModal():void {
         this.childModal.show();
     }
@@ -331,20 +339,31 @@ export class RectaNumericaColoresComponent implements OnInit {
         }
     }
 
-    calculatePorcentage(color: string) {
+    calculatePorcentageB(color: string) {
         let colorValue: number = 0;
         console.log('entre con ' + color);
-        if(this.textEstoy == 'Monedas') {
-            for(let moneda of this.monedas.filter(moneda => moneda.color == color)) {
-                colorValue += moneda.value * moneda.number;
-            }
-        } else {
+        if (this.currPuntaje.nivel.tipo == 'B' || this.currPuntaje.nivel.tipo == '2') {
             for(let billete of this.billetes.filter(billete => billete.color == color)) {
                 colorValue += billete.value * billete.number;
             }
         }
 
         let percentage = colorValue / this.targetValue;
+        console.log(percentage);
+        return percentage * 100;
+    }
+
+    calculatePorcentageM(color: string) {
+        let colorValue: number = 0;
+        console.log('entre con ' + color);
+        if(this.currPuntaje.nivel.tipo == 'M' || this.currPuntaje.nivel.tipo == '2') {
+            for(let moneda of this.monedas.filter(moneda => moneda.color == color)) {
+                colorValue += moneda.value * moneda.number;
+            }
+        }
+
+        let percentage = colorValue / this.targetValue;
+        console.log(percentage);
         return percentage * 100;
     }
 }

@@ -24,8 +24,8 @@ export class MenuComponent implements OnInit {
   { 
       this.juegos = [
           { nombre: 'Recta Numérica', name: 'RECTA_NUMERICA',  url: '/recta-numerica', image: '/assets/img/recta-numerica.jpg' },
-          { nombre: 'Balanza', name: 'BALANZA', url: '/balanza', image: '/assets/img/recta-numerica.jpg' },
-          { nombre: 'Recta Numérica Colores', name: 'RECTA_NUMERICA_COLOR', url: '/recta-numerica-colores', image: '/assets/img/recta-numerica.jpg' }
+          { nombre: 'Balanza', name: 'BALANZA', url: '/balanza', image: '/assets/img/balanza/0.jpg' },
+          { nombre: 'Recta Numérica Colores', name: 'RECTA_NUMERICA_COLOR', url: '/recta-numerica-colores', image: '/assets/img/recta-colores.jpg' }
       ]
   }
 

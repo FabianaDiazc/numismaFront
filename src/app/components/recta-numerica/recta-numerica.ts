@@ -139,7 +139,7 @@ export class RectaNumericaComponent implements OnInit {
     type: string;
     currPuntaje: Puntaje;
     nivel: number;
-    tipos: string[] = ['M', 'B', '2', 'Min'];
+    tipos: string[] = ['M', 'B', '2', 'MIN'];
 
     constructor(private usuarioService: UsuarioService,
                 private router: Router,

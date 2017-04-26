@@ -10,6 +10,7 @@ import { Objeto } from '../../models/objeto';
 export class RandomSelectorComponent implements OnInit {
 
   valores: Number[];
+  numVals: number = 5;
   @Output() onVotedRandom = new EventEmitter<Number>();
   @Input() type: string;
 
@@ -22,7 +23,7 @@ export class RandomSelectorComponent implements OnInit {
       let min = 0;
       let max = 200
       this.valores = [];
-      for(let i = 0; i < 10; i++) {
+      for(let i = 0; i < this.numVals; i++) {
         let val = (~~(Math.random() * (max - min) + min)) * 1000;
         this.valores.push(val);
       }
@@ -30,7 +31,7 @@ export class RandomSelectorComponent implements OnInit {
      let min = 0;
       let max = 500
       this.valores = [];
-      for(let i = 0; i < 10; i++) {
+      for(let i = 0; i < this.numVals; i++) {
         // multiplo de 50;
         let val = ( ~~(Math.random() * (max - min) + min) * 10);
         let mod = val % 50
@@ -40,7 +41,7 @@ export class RandomSelectorComponent implements OnInit {
       let min = 0;
       let max = 2000
       this.valores = [];
-      for(let i = 0; i < 10; i++) {
+      for(let i = 0; i < this.numVals; i++) {
         // multiplo de 50;
         let val = ( ~~(Math.random() * (max - min) + min) * 10);
         let mod = val % 50

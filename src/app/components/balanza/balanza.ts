@@ -150,7 +150,7 @@ export class BalanzaComponent implements OnInit {
     currPuntaje: Puntaje;
     balanzaIndex: number;
     nivel: number;
-    tipos: string[] = ['M', 'B', '2', 'Min'];
+    tipos: string[] = ['M', 'B', '2', 'MIN'];
 
     constructor(private usuarioService: UsuarioService,
                 private router: Router,
