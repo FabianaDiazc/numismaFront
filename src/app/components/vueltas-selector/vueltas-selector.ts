@@ -152,7 +152,7 @@ export class VueltasSelectorComponent implements OnInit {
       this.solution = this.targetVal - (this.multi*this.currBillete.value);
     } else {
       this.multi = ~~(this.targetVal / this.currMoneda.value);
-      this.solution = this.targetVal - (this.multi*this.currBillete.value);
+      this.solution = this.targetVal - (this.multi*this.currMoneda.value);
     }
 
     this.valores = [this.solution, this.solution, this.solution];
