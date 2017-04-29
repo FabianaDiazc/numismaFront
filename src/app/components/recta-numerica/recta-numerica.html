@@ -11,6 +11,10 @@
     </div>
 
     <ul class="nav navbar-nav navbar-right">
+       <li *ngIf="valueSelected && !isLoading">
+          <button (click)="showPista()" class="btn btn-danger btn-sm navbar-btn navbar-right" style="font-size: 1.0em;">Quiero una pista -1 punto</button>
+       </li>
+       <li> <a></a></li>
        <li *ngIf="usuario"><a>Hola {{ usuario.first_name }}</a></li>
        <li> <a></a></li>
        <li>
@@ -96,11 +100,39 @@
   </div>
 
   <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body">
-          <h1>¡¡Ganaste!!</h1>
+          <h2>{{ mensajeGanaste }}</h2>
           <button type="button" class="btn btn-success" (click)="continue()">
+            {{ mensajeBoton }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div bsModal #childModalTePasaste="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h3>Te pasaste por {{ myAbs(targetValue-currValue) |  currency:'USD':true:'1.0-0' }}, -1 punto.</h3>
+          <button type="button" class="btn btn-success" (click)="dismisTePasaste()">
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+   <div bsModal #childModalPista="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h1>Pista:</h1> 
+          <h3>{{ messagePista  }} {{ myAbs(targetValue-currValue) |  currency:'USD':true:'1.0-0' }}</h3>
+          <button type="button" class="btn btn-success" (click)="dismisPista()">
             Continuar
           </button>
         </div>

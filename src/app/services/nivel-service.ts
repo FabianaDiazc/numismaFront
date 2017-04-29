@@ -32,7 +32,7 @@ export class NivelService {
                                 'Accept': 'application/json',
                                 'Authorization': `Token ${this.token}`
                             });
-    var body = { estado: 'FINALIZADO' };
+    var body = { estado: 'FINALIZADO', puntos: puntaje.puntos };
     var options = new RequestOptions({ headers: headers });
     return this.http.put(authUsuarioUrl, body, options)
                     .map(response => response.json())
@@ -45,7 +45,7 @@ export class NivelService {
                                 'Accept': 'application/json',
                                 'Authorization': `Token ${this.token}`
                             });
-    var body = { estado: 'EN_PROGRESO' };
+    var body = { estado: 'EN_PROGRESO', puntos: 0 };
     var options = new RequestOptions({ headers: headers });
     return this.http.put(authUsuarioUrl, body, options)
                     .map(response => response.json())
