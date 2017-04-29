@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-  <object-selector *ngIf="!choosenObject" (onVoted)="onVoted($event)"></object-selector>
+  <object-selector *ngIf="!choosenObject && currPuntaje" (onVoted)="onVoted($event)" [type]="currPuntaje.nivel.tipo"></object-selector>
   <!--<alert type="success" *ngIf="this.progressType == 'success'">Success</alert>-->
   <div *ngIf="choosenObject && !showVueltasSelector">
     <div  class="row top-buffer">

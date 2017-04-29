@@ -21,7 +21,7 @@ export class ObjetoService {
                             });
     var options = new RequestOptions({ headers: headers });
     return this.http.get(authUsuarioUrl, options)
-                    .map(response => response.json().results.map(obj => new Object(obj)))
+                    .map(response => response.json().results.map(obj => new Objeto(obj)))
   }
 
   createObjeto(nuevo: Objeto): Observable<Objeto> {

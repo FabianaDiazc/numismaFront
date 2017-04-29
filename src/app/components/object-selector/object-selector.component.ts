@@ -1,4 +1,4 @@
-import { Component, OnInit,  EventEmitter, Output } from '@angular/core';
+import { Component, OnInit,  EventEmitter, Output, Input } from '@angular/core';
 import { ObjetoService } from '../../services/objeto.service';
 import { Objeto } from '../../models/objeto';
 
@@ -12,6 +12,7 @@ export class ObjectSelectorComponent implements OnInit {
   objetos: Objeto[];
   checked: boolean[];
   @Output() onVoted = new EventEmitter<Objeto[]>();
+  @Input() type: string;
 
   constructor(private objetoService: ObjetoService) 
   { 
@@ -19,9 +20,10 @@ export class ObjectSelectorComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.type);
     this.objetoService.getObjetos().subscribe(
       (objetos) => {
-        this.objetos = objetos;
+        this.objetos = objetos.filter(obj => obj.tipo == this.type);
         console.log(this.objetos);
         for(let obj of this.objetos) {
           this.checked.push(false);
