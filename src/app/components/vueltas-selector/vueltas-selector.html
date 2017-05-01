@@ -1,9 +1,19 @@
 <div class="row" *ngIf="!isLoading">
     <div class="col col-lg-6 col-lg-offset-3">
-    <alert *ngIf="currBillete"><strong>¿Cuales serían las vueltas si pagas {{ targetVal | currency:'USD':true:'1.0-0' }} con {{ multi+1 }} billetes de {{ this.currBillete.value | currency:'USD':true:'1.0-0' }}?</strong></alert>
-    <alert *ngIf="!currBillete && currMoneda"><strong>¿Cuales serían las vueltas si pagas {{ targetVal | currency:'USD':true:'1.0-0' }} con {{ multi+1 }} monedas de {{ this.currMoneda.value | currency:'USD':true:'1.0-0' }}?</strong></alert>
+      <alert *ngIf="currBillete">¿Cuales serían las vueltas si pagas <strong>{{ targetVal | currency:'USD':true:'1.0-0' }}</strong> con {{ multi+1 }} billetes de {{ this.currBillete.value | currency:'USD':true:'1.0-0' }}?</alert>
+      <alert *ngIf="!currBillete && currMoneda">¿Cuales serían las vueltas si pagas <strong>{{ targetVal | currency:'USD':true:'1.0-0' }}</strong> con {{ multi+1 }} monedas de {{ this.currMoneda.value | currency:'USD':true:'1.0-0' }}?</alert>
     </div>
 </div>
+<div class="row" *ngIf="!isLoading">
+    <div class="col col-lg-3 col-lg-offset-3" style="text-align: center;">
+      <img *ngIf="currBillete" [src]="currBillete.imgUrl" style="height: 100px;">
+      <img *ngIf="!currBillete && currMoneda" [src]="currMoneda.imgUrl" style="height: 100px;">
+    </div>
+    <div class="col col-lg-3">
+      <h1>x {{ multi+1 }} </h1>
+    </div>
+</div>
+<br>
 <div class="row" *ngIf="!isLoading">
     <div class="col-xs-12 col-sm-offset-3 col-sm-6">
         <div class="panel panel-default">
