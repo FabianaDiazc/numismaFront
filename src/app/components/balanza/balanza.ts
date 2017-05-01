@@ -17,6 +17,7 @@ import { Router, ActivatedRoute }  from '@angular/router';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 import { NivelService } from '../../services/nivel-service';
 import { Puntaje } from '../../models/puntaje';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'balanza',
@@ -60,9 +61,12 @@ export class BalanzaComponent implements OnInit {
     usuario: Usuario;
     choosenObject: Objeto;
     valueSelected: Boolean;
+    messagePista: string;
 
     @ViewChild('childModal') public childModal:ModalDirective;
     @ViewChild('avatar') avatar: ElementRef;
+    @ViewChild('childModalPista') public childModalPista:ModalDirective; 
+    @ViewChild('childModalTePasaste') public childModalTePasaste:ModalDirective; 
 
     billetes: any[] = [
         {
@@ -151,6 +155,9 @@ export class BalanzaComponent implements OnInit {
     balanzaIndex: number;
     nivel: number;
     tipos: string[] = ['M', 'B', '2', 'MIN'];
+    mensajeGanaste: string; 
+    mensajeBoton: string; 
+    subscription: any;
 
     constructor(private usuarioService: UsuarioService,
                 private router: Router,
@@ -194,6 +201,7 @@ export class BalanzaComponent implements OnInit {
                     if(this.currPuntaje.estado == 'BLOQUEADO') {
                         this.router.navigate(['/menu']);
                     }
+                    this.currPuntaje.puntos = 5;
 
                     this.type = this.currPuntaje.nivel.tipo == 'M' ? 'monedas' : this.currPuntaje.nivel.tipo == 'B' ? 'billetes' : 'both';
                     if(this.type == 'monedas') {
@@ -207,6 +215,7 @@ export class BalanzaComponent implements OnInit {
                         this.checkModel.billetes = true;
                     }
                     console.log(this.type);
+                    this.showPistaAfter2min();
                     this.isLoading = false;
                 },
                 (error) => { 
@@ -281,6 +290,8 @@ export class BalanzaComponent implements OnInit {
             this.progressType = 'info';
         } else if (this.currValue > this.targetValue) {
             this.progressType = 'danger';
+            this.childModalTePasaste.show(); 
+            this.currPuntaje.puntos--;
         } else if (this.currValue == this.targetValue) {
             this.progressType = 'success';
         }
@@ -288,6 +299,7 @@ export class BalanzaComponent implements OnInit {
     }
 
      terminarNivel() {
+        this.subscription.unsubscribe(); 
         let nextPuntaje = this.puntajes.find(puntaje => puntaje.nivel.id == this.currPuntaje.nivel.siguiente);
         this.nivelService.terminarNivel(this.currPuntaje).subscribe(
             (data) => {
@@ -331,11 +343,61 @@ export class BalanzaComponent implements OnInit {
     }
 
     public showChildModal():void {
+        if(this.currPuntaje.puntos >= 3) { 
+            this.mensajeGanaste = "¡¡Ganaste!! obtuvuste " + this.currPuntaje.puntos + " puntos."; 
+            this.mensajeBoton = "Continuar"; 
+        } else { 
+            this.mensajeGanaste = "Obtuvuste " + this.currPuntaje.puntos + " punto(s). Necesitas al menos 3 para pasar al siguente juego."; 
+            this.mensajeBoton = "Volver a intentar"; 
+        } 
         this.childModal.show();
     }
 
     continue() {
-        this.terminarNivel();
+        if(this.currPuntaje.puntos >= 3) 
+            this.terminarNivel(); 
+        else { 
+            this.valueSelected = false; 
+            this.currPuntaje.puntos = 5; 
+            this.currValue = 0; 
+            console.log('me voy a desuscribir'); 
+            this.subscription.unsubscribe(); 
+            this.childModal.hide(); 
+        } 
+    }
+
+     showPista(message: string) { 
+        if(!message) message= ''; 
+        this.currPuntaje.puntos--; 
+        if(this.targetValue-this.currValue > 0) 
+            this.messagePista = message + " te faltan: " ; 
+        else 
+            this.messagePista = message + " te sobran: " ; 
+        this.childModalPista.show(); 
+    } 
+ 
+    dismisPista() { 
+        this.childModalPista.hide(); 
+    } 
+ 
+    dismisTePasaste() { 
+        this.childModalTePasaste.hide(); 
+    }
+
+    showPistaAfter2min () { 
+        this.subscription = this.sleep(120000).subscribe( 
+            () => { 
+                this.showPista("Vas 2 minutos: "); 
+            } 
+        ); 
+    } 
+ 
+    sleep (time) { 
+        return Observable.timer(time);
+    } 
+ 
+    myAbs(val: number) { 
+      return Math.abs(val); 
     }
 
 }
