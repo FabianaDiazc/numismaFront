@@ -22,35 +22,35 @@ export class VueltasSelectorComponent implements OnInit {
           number: 0,
           maxNumber: 20,
           color: 'primary',
-          imgUrl: "http://www.banrep.gov.co/billetes/2-mil/images/2000/anverso2000.jpg"
+          imgUrl: "assets/img/billetes/2mil.jpg"
       },
       {
           value: 5000,
           number: 0,
           maxNumber: 20,
           color: 'info',
-          imgUrl: "http://www.banrep.gov.co/billetes/5-mil/images/5000/anverso5000.jpg"
+          imgUrl: "assets/img/billetes/5mil.jpg"
       },
       {
           value: 10000,
           number: 0,
           maxNumber: 20,
           color: 'warning',
-          imgUrl: "http://www.banrep.gov.co/billetes/10-mil/images/10000/anverso10000.jpg"
+          imgUrl: "assets/img/billetes/10mil.jpg"
       },
       {
           value: 20000,
           number: 0,
           maxNumber: 20,
           color: 'success',
-          imgUrl: "http://www.banrep.gov.co/billetes/20-mil/images/20000/anverso20000.jpg"
+          imgUrl: "assets/img/billetes/20mil.jpg"
       },
       {
           value: 50000,
           number: 0,
           maxNumber: 20,
           color: 'danger',
-          imgUrl: "http://www.banrep.gov.co/billetes/50-mil/images/50000/anverso50000.png"
+          imgUrl: "assets/img/billetes/50mil.jpg"
       }
   ];
 
