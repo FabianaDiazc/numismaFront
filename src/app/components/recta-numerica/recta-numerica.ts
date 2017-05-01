@@ -309,7 +309,7 @@ export class RectaNumericaComponent implements OnInit {
 
     public showChildModal():void {
         if(this.currPuntaje.puntos >= 3) {
-            this.mensajeGanaste = "¡¡Ganaste!! obtuvuste " + this.currPuntaje.puntos + " puntos.";
+            this.mensajeGanaste = "¡¡Ganaste!! obtuviste " + this.currPuntaje.puntos + " puntos.";
             this.mensajeBoton = "Continuar";
         } else {
             this.mensajeGanaste = "Obtuvuste " + this.currPuntaje.puntos + " punto(s). Necesitas al menos 3 para pasar al siguente juego.";
@@ -325,6 +325,8 @@ export class RectaNumericaComponent implements OnInit {
             this.valueSelected = false;
             this.currPuntaje.puntos = 5;
             this.currValue = 0;
+            this.monedas.map(moneda => moneda.number = 0);
+            this.billetes.map(billete => billete.number = 0);
             console.log('me voy a desuscribir');
             this.subscription.unsubscribe();
             this.childModal.hide();

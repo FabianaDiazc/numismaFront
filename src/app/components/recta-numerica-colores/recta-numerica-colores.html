@@ -230,12 +230,12 @@
   <vueltas-selector *ngIf="showVueltasSelector" [type]="type" [targetVal]="targetValue" (onVueltasSelected)="onVueltasSelected($event)"></vueltas-selector>
 
   <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body">
-          <h1>¡¡Ganaste!!</h1>
-           <button type="button" class="btn btn-success" (click)="continue()">
-            Continuar
+          <h2>{{ mensajeGanaste }}</h2>
+          <button type="button" class="btn btn-success" (click)="continue()">
+            {{ mensajeBoton }}
           </button>
         </div>
       </div>

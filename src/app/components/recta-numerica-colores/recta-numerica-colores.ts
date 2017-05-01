@@ -64,6 +64,8 @@ export class RectaNumericaColoresComponent implements OnInit {
     type: string;
     currPuntaje: Puntaje;
     showVueltasSelector: boolean;
+    mensajeGanaste: string;
+    mensajeBoton: string;
 
     @ViewChild('childModal') public childModal:ModalDirective;
     // @ViewChild('avatar') avatar: ElementRef;
@@ -303,17 +305,34 @@ export class RectaNumericaColoresComponent implements OnInit {
         this.targetValue = val;
     }
 
-    onVueltasSelected(val) {
+    onVueltasSelected(puntos) {
         this.showVueltasSelector = false;
+        this.currPuntaje.puntos = puntos;
         this.showChildModal();
     }
 
     public showChildModal():void {
+         if(this.currPuntaje.puntos >= 2) {
+            this.mensajeGanaste = "¡¡Ganaste!! obtuviste " + this.currPuntaje.puntos + " puntos.";
+            this.mensajeBoton = "Continuar";
+        } else {
+            this.mensajeGanaste = "Obtuvuste " + this.currPuntaje.puntos + " punto(s). Necesitas al menos 2 para pasar al siguente juego.";
+            this.mensajeBoton = "Volver a intentar";
+        }
         this.childModal.show();
     }
 
     continue() {
-        this.terminarNivel();
+        if(this.currPuntaje.puntos >= 2)
+            this.terminarNivel();
+        else {
+            this.choosenObject = undefined;
+            this.currPuntaje.puntos = 3;
+            this.monedas.map(moneda => moneda.number = 0);
+            this.billetes.map(billete => billete.number = 0);
+            this.currValue = 0;
+            this.childModal.hide();
+        }
     }
 
     changeEstoy() {

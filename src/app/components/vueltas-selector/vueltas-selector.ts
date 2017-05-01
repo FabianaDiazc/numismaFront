@@ -101,10 +101,12 @@ export class VueltasSelectorComponent implements OnInit {
   @Input() targetVal: number;
   isLoading: boolean;
   solution: number;
+  puntos: number;
   @ViewChild('childModal') public childModal:ModalDirective;
 
   constructor(private objetoService: ObjetoService) 
   {
+    this.puntos = 3;
     this.isLoading = true; 
   }
 
@@ -184,9 +186,10 @@ export class VueltasSelectorComponent implements OnInit {
   select(val: Number) {
     if(val == this.solution) {
       console.log('ganaste');
-      this.onVueltasSelected.emit(val);
+      this.onVueltasSelected.emit(this.puntos);
     } else {
       console.log('mal');
+      this.puntos--;
       this.childModal.show();
     }
     
