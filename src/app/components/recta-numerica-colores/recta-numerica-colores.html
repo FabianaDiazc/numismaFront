@@ -39,10 +39,10 @@
   <!--<alert type="success" *ngIf="this.progressType == 'success'">Success</alert>-->
   <div *ngIf="choosenObject && !showVueltasSelector">
     <div  class="row top-buffer">
-      <alert type="warning">
+      <alert type="warning" class="top-value">
         <span *ngFor="let obj of choosenObject">
         <img [src]="obj.imagen" style="height: 100px;"/>
-        {{ obj.valor | currency:'USD':true:'1.0-0' }}
+        Tienes que llegar a: {{ obj.valor | currency:'USD':true:'1.0-0' }}
         </span>
       </alert>
     </div>
@@ -77,12 +77,13 @@
           <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar</button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir</button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
             </div>
         </div>
 
@@ -90,12 +91,13 @@
           <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar</button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir</button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
             </div>
         </div>
 
@@ -103,12 +105,13 @@
           <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar</button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir</button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
             </div>
         </div>
 
@@ -116,12 +119,13 @@
           <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar</button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir</button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
             </div>
         </div>
 
@@ -129,12 +133,13 @@
           <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar</button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir</button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
             </div>
         </div>
 
@@ -142,12 +147,13 @@
           <div class="panel-heading"> {{ billete.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="billete.imgUrl" class="billete">
+              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(billete)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar</button>
+                <button type="button" style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(billete)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir</button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ billete.number }} </div>
             </div>
         </div>
 
@@ -163,12 +169,13 @@
           <div class="panel-heading progress-bar-striped"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
+              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir </button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
             </div>
         </div>
 
@@ -176,12 +183,13 @@
           <div class="panel-heading progress-bar-striped"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
+              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir </button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
             </div>
         </div>
 
@@ -189,12 +197,13 @@
           <div class="panel-heading progress-bar-striped"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
+              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir </button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
             </div>
         </div>
 
@@ -202,12 +211,13 @@
           <div class="panel-heading progress-bar-striped"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
+              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir </button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
             </div>
         </div>
 
@@ -215,12 +225,13 @@
           <div class="panel-heading progress-bar-striped"> {{ moneda.value | currency:'USD':true:'1.0-0' }} </div>
             <div class="panel-body">
             <img [@focusPanel]='state' [@movePanel]='state' [src]="moneda.imgUrl" class="moneda">
+              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
+              <br>
               <div class="btn-group-vertical" role="group" style="float: left">
-                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> </button>
-                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-primary btn-xs" (click)="add(moneda)"> <span class="glyphicon glyphicon-triangle-top"></span> Aumentar </button>
+                <button type="button"  style="font-size: 1.2em" class="btn btn-info btn-xs" (click)="substract(moneda)"> <span class="glyphicon glyphicon-triangle-bottom"></span> Disminuir </button>
               </div>
 
-              <div class="alert alert-info number" role="alert"> {{ moneda.number }} </div>
             </div>
         </div>
       </div>

@@ -201,7 +201,7 @@ export class BalanzaComponent implements OnInit {
                     if(this.currPuntaje.estado == 'BLOQUEADO') {
                         this.router.navigate(['/menu']);
                     }
-                    this.currPuntaje.puntos = 5;
+                    this.currPuntaje.puntos = 10;
 
                     this.type = this.currPuntaje.nivel.tipo == 'M' ? 'monedas' : this.currPuntaje.nivel.tipo == 'B' ? 'billetes' : 'both';
                     if(this.type == 'monedas') {
@@ -358,7 +358,7 @@ export class BalanzaComponent implements OnInit {
             this.terminarNivel(); 
         else { 
             this.valueSelected = false; 
-            this.currPuntaje.puntos = 5; 
+            this.currPuntaje.puntos = 10; 
             this.currValue = 0;
             this.monedas.map(moneda => moneda.number = 0);
             this.billetes.map(billete => billete.number = 0);

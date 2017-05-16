@@ -25,8 +25,8 @@ button {
 }
 
 .number {
-  margin-left: 50%;
   text-align: center;
+  margin-bottom: 0px !important;
 }
 
 .avatar {
@@ -44,4 +44,8 @@ button {
 .balanza {
   height: 220px;
   margin-bottom: 15px;
+}
+
+.top-value {
+  font-size: 30px;
 }

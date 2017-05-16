@@ -25,8 +25,8 @@ button {
 }
 
 .number {
-  margin-left: 50%;
   text-align: center;
+  margin-bottom: 0px !important;
 }
 
 .avatar {
@@ -59,4 +59,8 @@ button {
     background-color: #d9534f;
     border-color: #ebccd1;
 
+}
+
+.top-value {
+  font-size: 30px;
 }
