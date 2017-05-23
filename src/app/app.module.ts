@@ -25,7 +25,7 @@ import { RectaNumericaColoresComponent } from './components/recta-numerica-color
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'singup', component: SignupComponent },
-  { path: 'menu', component: MenuComponent },
+  { path: 'menu/:presentation', component: MenuComponent },
   { path: 'recta-numerica/:nivel', component: RectaNumericaComponent },
   { path: 'balanza/:nivel', component: BalanzaComponent },
   { path: 'recta-numerica-colores/:nivel', component: RectaNumericaColoresComponent },

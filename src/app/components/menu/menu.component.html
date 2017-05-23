@@ -22,8 +22,15 @@
 <div class="container" >
   <div class="spinner" *ngIf="isLoading"></div>
 
+  <div class="row" *ngIf="presentation">
+    <div style="text-align: center;" class="col-xs-12 col-sm-offset-3 col-sm-6">
+      <h1>Bienvenido a numisma Col</h1>
+      <img style="height: 250px;" src="/assets/img/logoSM.png">
+      <button class="btn btn-warning" (click)="start()"> Comenzar </button>
+    </div>
+  </div>
 
-  <div class="row" *ngIf="!isLoading">
+  <div class="row" *ngIf="!isLoading && !presentation">
     <div class="col-xs-12 col-sm-offset-3 col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading c-list">
@@ -57,6 +64,7 @@
               </li>
             </ul>
         </div>
+        <a class="btn btn-info btn-block" role="button" href="https://docs.google.com/forms/d/e/1FAIpQLSc1Y01y9r838HXxhOd2g1-Xg5G4I8pEruxCPoSO3DA3zrmYKA/viewform" target="_blank">   Quiero dar sugerencia </a>
     </div>
   </div>
 </div>

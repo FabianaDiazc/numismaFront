@@ -61,7 +61,7 @@ export class SignupComponent implements OnInit{
         this.isLoading = true;
         this.usuarioService.getAuthCustomer().subscribe(
             (usuario) => {
-                this.router.navigate(['/menu']);
+                this.router.navigate(['/menu', 1]);
                 this.isLoading = false;
             },
             (error) => {
@@ -99,7 +99,7 @@ export class SignupComponent implements OnInit{
                         (token) => {
                             sessionStorage.setItem('token', token);
                             console.log(usuario);
-                            this.router.navigate(['/menu']);
+                            this.router.navigate(['/menu', 1]);
                         },
                         (error) => {
                             console.log('error');

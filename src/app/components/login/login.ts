@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit{
         this.isLoading = true;
         this.usuarioService.getAuthCustomer().subscribe(
             (usuario) => {
-                this.router.navigate(['/menu']);
+                this.router.navigate(['/menu', 1]);
                 this.isLoading = false;
                 console.log('bien');
             },
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit{
         if(this.form.valid) {
             this.usuarioService.login(this.username.value, this.password.value).subscribe(
                 (data) => {
-                    this.router.navigate(['/menu']);
+                    this.router.navigate(['/menu', 1]);
                 },
                 (error) => {
                     console.log(error);

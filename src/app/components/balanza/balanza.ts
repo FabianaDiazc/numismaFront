@@ -199,7 +199,7 @@ export class BalanzaComponent implements OnInit {
                     this.currPuntaje = this.puntajes.find(puntaje =>  puntaje.nivel.nombre == 'BALANZA' && puntaje.nivel.tipo == this.tipos[this.nivel]);
                     console.log(this.currPuntaje);
                     if(this.currPuntaje.estado == 'BLOQUEADO') {
-                        this.router.navigate(['/menu']);
+                        this.router.navigate(['/menu', 0]);
                     }
                     this.currPuntaje.puntos = 10;
 
@@ -328,7 +328,7 @@ export class BalanzaComponent implements OnInit {
     }
 
     goToMenu() {
-        this.router.navigate(['/menu']);
+        this.router.navigate(['/menu', 0]);
     }
 
     onVoted(obj: Objeto) {

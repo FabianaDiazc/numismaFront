@@ -188,6 +188,10 @@ export class RectaNumericaColoresComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.nivel = +params['nivel'];
             console.log('entre con nivel: ' + this.nivel);
+            if(this.nivel == 3) {
+                this.billetes.map((billete) => billete.maxNumber = 10000);
+                this.monedas.map((moneda) => moneda.maxNumber = 10000);
+            }
             this.nivelService.getPuntajesJuegoActual().subscribe(
                 (puntajes) => { 
                     this.puntajes = puntajes; 
@@ -195,7 +199,7 @@ export class RectaNumericaColoresComponent implements OnInit {
                     this.currPuntaje = this.puntajes.find(puntaje =>  puntaje.nivel.nombre == 'RECTA_NUMERICA_COLOR' && puntaje.nivel.tipo == this.tipos[this.nivel]);
                     console.log(this.currPuntaje);
                     if(this.currPuntaje.estado == 'BLOQUEADO') {
-                        this.router.navigate(['/menu']);
+                        this.router.navigate(['/menu', 0]);
                     }
 
                     this.type = this.currPuntaje.nivel.tipo == 'M' ? 'monedas' : this.currPuntaje.nivel.tipo == 'B' ? 'billetes' : 'both';
@@ -294,7 +298,7 @@ export class RectaNumericaColoresComponent implements OnInit {
     }
 
     goToMenu() {
-        this.router.navigate(['/menu']);
+        this.router.navigate(['/menu', 0]);
     }
 
     onVoted(obj: Objeto[]) {

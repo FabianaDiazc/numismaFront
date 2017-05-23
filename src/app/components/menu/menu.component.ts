@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router }  from '@angular/router';
+import { Router, ActivatedRoute }  from '@angular/router';
 
 import { UsuarioService } from '../../services/usuario-service';
 import { NivelService } from '../../services/nivel-service';
@@ -17,9 +17,11 @@ export class MenuComponent implements OnInit {
   usuario: Usuario;
   puntajes: Puntaje[];
   juegos: { nombre: string, name: string, url: string, image: string}[];
+  presentation: boolean;
 
   constructor(private usuarioService: UsuarioService,
               private router: Router,
+              private route: ActivatedRoute,
               private nivelService: NivelService) 
   { 
       this.juegos = [
@@ -35,6 +37,10 @@ export class MenuComponent implements OnInit {
     if(!token) {
         this.router.navigate(['/login']);
     } else { 
+        this.route.params.subscribe(params => {
+            this.presentation = params['presentation'] == 1 ? true : false;
+            console.log(this.presentation);
+        });
         this.usuarioService.getAuthCustomer().subscribe(
             (usuario) => {
                 this.usuarioService.setUsuario(usuario);
@@ -76,5 +82,9 @@ export class MenuComponent implements OnInit {
         return true;
     else
         return false;
+  }
+
+  start() {
+      this.presentation = false;
   }
 }

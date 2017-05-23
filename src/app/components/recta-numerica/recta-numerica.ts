@@ -187,7 +187,7 @@ export class RectaNumericaComponent implements OnInit {
                     this.currPuntaje = this.puntajes.find(puntaje =>  puntaje.nivel.nombre == 'RECTA_NUMERICA' && puntaje.nivel.tipo == this.tipos[this.nivel]);
                     console.log(this.currPuntaje);
                     if(this.currPuntaje.estado == 'BLOQUEADO') {
-                        this.router.navigate(['/menu']);
+                        this.router.navigate(['/menu', 0]);
                     }
                     this.currPuntaje.puntos = 10;
 
@@ -293,7 +293,7 @@ export class RectaNumericaComponent implements OnInit {
     }
 
     goToMenu() {
-        this.router.navigate(['/menu']);
+        this.router.navigate(['/menu', 0]);
     }
 
     onVoted(obj: Objeto) {

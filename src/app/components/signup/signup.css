@@ -25,3 +25,13 @@
 .icon-option {
     height: 100px;
 }
+
+.container {
+    height: 100%;
+}
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    margin-bottom: 0px;
+} 
